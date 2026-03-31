@@ -2089,6 +2089,23 @@
       flex-wrap: wrap;
       justify-content: flex-end;
     }
+    .skip-link {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 100;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: var(--primary);
+      color: #111111;
+      font-weight: 800;
+      text-decoration: none;
+      transform: translateY(-160%);
+      transition: transform .18s ease;
+    }
+    .skip-link:focus {
+      transform: translateY(0);
+    }
     .sr-only {
       position: absolute;
       width: 1px;
@@ -2161,8 +2178,24 @@
     .score-number {
       transition: color .3s ease;
     }
+    .app-main {
+      display: grid;
+      gap: 0;
+    }
     .ticket[draggable="true"] { cursor: grab; }
     .ticket[draggable="true"]:active { cursor: grabbing; }
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
     ::-webkit-scrollbar { width: 8px; height: 8px; }
     ::-webkit-scrollbar-track { background: rgba(255,255,255,.03); border-radius: 8px; }
     ::-webkit-scrollbar-thumb {
@@ -2232,8 +2265,14 @@
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Ir para o conteúdo principal</a>
+  <noscript>
+    <div style="padding:16px;background:#111;color:#fff;border-bottom:1px solid rgba(255,255,255,.12);font:600 14px/1.5 Montserrat,system-ui,sans-serif;">
+      Este aplicativo precisa de JavaScript habilitado para funcionar corretamente.
+    </div>
+  </noscript>
   <div class="app">
-    <div class="topbar glass" role="banner">
+    <header class="topbar glass">
       <div class="topbar-left">
         <div class="brand-mark" aria-hidden="true">WPM</div>
         <div class="brand-copy">
@@ -2249,40 +2288,41 @@
         </div>
       </div>
       <div class="topbar-right">
-        <div class="topbar-actions"><button class="btn btn-ghost" onclick="resetSelectedMonth()" aria-label="Resetar dados do mês selecionado">Resetar mês</button><button class="btn btn-primary" id="closeMonthBtn" onclick="closeCurrentMonth()" aria-label="Fechar o mês atual e avançar">▼ Fechar mês</button></div>
+        <div class="topbar-actions"><button type="button" class="btn btn-ghost" data-action="reset-selected-month" aria-label="Resetar dados do mês selecionado">Resetar mês</button><button type="button" class="btn btn-primary" id="closeMonthBtn" data-action="close-current-month" aria-label="Fechar o mês atual e avançar">▼ Fechar mês</button></div>
       </div>
-    </div>
-    <section class="hero">
-      <div class="hero-main glass">
+    </header>
+    <main id="main-content" class="app-main">
+      <section class="hero" aria-labelledby="app-title">
+      <header class="hero-main glass">
         <div class="eyebrow">WPM Gestão Interna • v33</div>
-        <h1>Painel executivo da recepção</h1>
+        <h1 id="app-title">Painel executivo da recepção</h1>
         <p class="subtitle">
           Centro de comando da operação: acompanhe atendimentos, vendas de addons, pendências e NPS em tempo real.
           Gestão mensal independente por período com exportação, backup e diagnóstico integrados.
         </p>
         <div class="hero-actions">
-          <button class="btn btn-primary" onclick="openStudentModal()" aria-label="Cadastrar novo atendimento">+ Novo atendimento</button>
-          <button class="btn btn-ghost" onclick="openPendingModal()" aria-label="Registrar nova pendência">+ Nova pendência</button>
-          <button class="btn btn-ghost" onclick="downloadData()" aria-label="Exportar backup completo em JSON">Exportar backup</button>
+          <button type="button" class="btn btn-primary" data-action="open-student-modal" aria-label="Cadastrar novo atendimento">+ Novo atendimento</button>
+          <button type="button" class="btn btn-ghost" data-action="open-pending-modal" aria-label="Registrar nova pendência">+ Nova pendência</button>
+          <button type="button" class="btn btn-ghost" data-action="download-data" aria-label="Exportar backup completo em JSON">Exportar backup</button>
           <label class="btn btn-ghost import-label" for="importFile">Importar backup</label>
           <input id="importFile" type="file" accept="application/json" class="sr-only" aria-label="Selecionar arquivo de backup para importação" />
         </div>
-      </div>
-      <div class="hero-side glass" id="heroSummary"></div>
-    </section>
+      </header>
+      <aside class="hero-side glass" id="heroSummary" aria-label="Resumo do período"></aside>
+      </section>
 
-    <nav class="tabs" role="tablist" aria-label="Módulos do sistema">
-      <button class="tab-btn active" data-tab="dashboard" role="tab" aria-selected="true">Dashboard</button>
-      <button class="tab-btn" data-tab="students" role="tab" aria-selected="false">Alunos novos</button>
-      <button class="tab-btn" data-tab="addons" role="tab" aria-selected="false">Vendas de addons</button>
-      <button class="tab-btn" data-tab="pending" role="tab" aria-selected="false">Pendências</button>
-      <button class="tab-btn" data-tab="nps" role="tab" aria-selected="false">NPS</button>
-      <button class="tab-btn" data-tab="scale" role="tab" aria-selected="false">Escala</button>
-      <button class="tab-btn" data-tab="events" role="tab" aria-selected="false">Eventos e ações</button>
-      <button class="tab-btn" data-tab="settings" role="tab" aria-selected="false">Configurações</button>
-    </nav>
+      <nav class="tabs" role="tablist" aria-label="Módulos do sistema">
+      <button type="button" class="tab-btn active" id="tab-dashboard" data-tab="dashboard" role="tab" aria-controls="dashboard" aria-selected="true">Dashboard</button>
+      <button type="button" class="tab-btn" id="tab-students" data-tab="students" role="tab" aria-controls="students" aria-selected="false">Alunos novos</button>
+      <button type="button" class="tab-btn" id="tab-addons" data-tab="addons" role="tab" aria-controls="addons" aria-selected="false">Vendas de addons</button>
+      <button type="button" class="tab-btn" id="tab-pending" data-tab="pending" role="tab" aria-controls="pending" aria-selected="false">Pendências</button>
+      <button type="button" class="tab-btn" id="tab-nps" data-tab="nps" role="tab" aria-controls="nps" aria-selected="false">NPS</button>
+      <button type="button" class="tab-btn" id="tab-scale" data-tab="scale" role="tab" aria-controls="scale" aria-selected="false">Escala</button>
+      <button type="button" class="tab-btn" id="tab-events" data-tab="events" role="tab" aria-controls="events" aria-selected="false">Eventos e ações</button>
+      <button type="button" class="tab-btn" id="tab-settings" data-tab="settings" role="tab" aria-controls="settings" aria-selected="false">Configurações</button>
+      </nav>
 
-    <section class="view active" id="dashboard" role="tabpanel">
+    <section class="view active" id="dashboard" role="tabpanel" aria-labelledby="tab-dashboard" tabindex="0">
       <div class="stats-grid" id="dashboardCards"></div>
       <div class="insight-grid" id="dashboardInsights"></div>
       <div class="grid-2">
@@ -2323,7 +2363,7 @@
       </div>
     </section>
 
-    <section class="view" id="students">
+    <section class="view" id="students" role="tabpanel" aria-labelledby="tab-students" tabindex="0" hidden>
       <div class="section glass">
         <div class="toolbar">
           <div class="toolbar-title">
@@ -2331,7 +2371,7 @@
             <p>Cadastre atendimentos, filtre registros e edite data/hora da visita direto na tabela.</p>
           </div>
           <div class="toolbar-actions">
-            <input id="studentSearch" type="text" placeholder="Buscar por nome, CPF, atendente ou observação" />
+            <input id="studentSearch" type="text" placeholder="Buscar por nome, matrícula, atendente ou observação" />
             <select id="studentFilterAtendente"></select>
             <select id="studentFilterFeedback">
               <option value="">Todos os feedbacks</option>
@@ -2339,24 +2379,25 @@
               <option value="Não respondeu">Não respondeu</option>
               <option value="Pendente">Pendente</option>
             </select>
-            <button class="btn btn-primary" onclick="openStudentModal()">Adicionar</button>
+            <button class="btn btn-primary" data-action="open-student-modal">Adicionar</button>
           </div>
         </div>
         <div class="table-wrap">
           <table class="student-table">
+            <caption class="sr-only">Lista de alunos novos do período ativo</caption>
             <thead>
               <tr>
-                <th>Nome</th>
-                <th>Matrícula/CPF</th>
-                <th>Última visita</th>
-                <th>Hora da visita</th>
-                <th>Início</th>
-                <th>Aviso NPS</th>
-                <th>Atendimento</th>
-                <th>Feedback</th>
-                <th>Addon</th>
-                <th>Observações</th>
-                <th class="right">Ações</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Matrícula</th>
+                <th scope="col">Última visita</th>
+                <th scope="col">Hora da visita</th>
+                <th scope="col">Início</th>
+                <th scope="col">Aviso NPS</th>
+                <th scope="col">Atendimento</th>
+                <th scope="col">Feedback</th>
+                <th scope="col">Addon</th>
+                <th scope="col">Observações</th>
+                <th scope="col" class="right">Ações</th>
               </tr>
             </thead>
             <tbody id="studentTableBody"></tbody>
@@ -2365,7 +2406,7 @@
       </div>
     </section>
 
-    <section class="view" id="addons">
+    <section class="view" id="addons" role="tabpanel" aria-labelledby="tab-addons" tabindex="0" hidden>
       <div class="section glass">
         <div class="toolbar">
           <div class="toolbar-title">
@@ -2379,14 +2420,14 @@
               <option value="30">30 dias</option>
               <option value="31" selected>31 dias</option>
             </select>
-            <button class="btn btn-ghost" onclick="addPerson()">+ Atendente</button>
+            <button class="btn btn-ghost" data-action="add-person">+ Atendente</button>
           </div>
         </div>
         <div class="addon-grid" id="addonsGrid"></div>
       </div>
     </section>
 
-    <section class="view" id="pending">
+    <section class="view" id="pending" role="tabpanel" aria-labelledby="tab-pending" tabindex="0" hidden>
       <div class="grid-3">
         <div class="section glass">
           <div class="toolbar">
@@ -2396,22 +2437,23 @@
             </div>
             <div class="toolbar-actions">
               <input id="pendingSearch" type="text" placeholder="Buscar pendências" />
-              <button class="btn btn-ghost" onclick="exportPendingCsv()">Exportar CSV</button>
-              <button class="btn btn-primary" onclick="openPendingModal()">Adicionar</button>
+              <button class="btn btn-ghost" data-action="export-pending-csv">Exportar CSV</button>
+              <button class="btn btn-primary" data-action="open-pending-modal">Adicionar</button>
             </div>
           </div>
           <div class="table-wrap">
             <table class="pending-table">
+              <caption class="sr-only">Tabela de pendências do período ativo</caption>
               <thead>
                 <tr>
-                  <th>Nome</th>
-                  <th>Matrícula/CPF</th>
-                  <th>Pendência</th>
-                  <th>Solicitação</th>
-                  <th>Hostess</th>
-                  <th>Resposta</th>
-                  <th>Status</th>
-                  <th class="right">Ações</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Matrícula</th>
+                  <th scope="col">Pendência</th>
+                  <th scope="col">Solicitação</th>
+                  <th scope="col">Hostess</th>
+                  <th scope="col">Resposta</th>
+                  <th scope="col">Status</th>
+                  <th scope="col" class="right">Ações</th>
                 </tr>
               </thead>
               <tbody id="pendingTableBody"></tbody>
@@ -2428,7 +2470,7 @@
       </div>
     </section>
 
-    <section class="view" id="nps">
+    <section class="view" id="nps" role="tabpanel" aria-labelledby="tab-nps" tabindex="0" hidden>
       <div class="nps-grid">
         <div class="section glass">
           <div class="toolbar-title">
@@ -2455,7 +2497,7 @@
             </div>
             <div class="field" style="justify-content:end;">
               <label>&nbsp;</label>
-              <button class="btn btn-primary" onclick="registerMention()">Registrar citação</button>
+              <button class="btn btn-primary" data-action="register-mention">Registrar citação</button>
             </div>
           </div>
           <div class="rank-list" id="npsRankingList"></div>
@@ -2469,14 +2511,14 @@
         <div class="obs-box">
           <textarea id="npsObservations" placeholder="Escreva observações, destaques das pesquisas, padrões percebidos e próximos passos..."></textarea>
           <div class="inline-actions">
-            <button class="btn btn-success" onclick="saveNpsObservations()">Salvar observações</button>
+            <button class="btn btn-success" data-action="save-nps-observations">Salvar observações</button>
           </div>
         </div>
       </div>
     </section>
 
 
-    <section class="view" id="scale">
+    <section class="view" id="scale" role="tabpanel" aria-labelledby="tab-scale" tabindex="0" hidden>
       <div class="section glass">
         <div class="toolbar">
           <div class="toolbar-title">
@@ -2485,9 +2527,9 @@
           </div>
           <div class="toolbar-actions">
             <input id="scaleSearch" type="text" placeholder="Buscar por dia, professor, recepção ou observação" />
-            <button class="btn btn-ghost" onclick="resetViewFilters('scale')">Limpar busca</button>
-            <button class="btn btn-ghost" onclick="exportScaleCsv()">Exportar CSV</button>
-            <button class="btn btn-primary" onclick="openScaleModal()">Adicionar dia de escala</button>
+            <button class="btn btn-ghost" data-action="reset-view-filters" data-view="scale">Limpar busca</button>
+            <button class="btn btn-ghost" data-action="export-scale-csv">Exportar CSV</button>
+            <button class="btn btn-primary" data-action="open-scale-modal">Adicionar dia de escala</button>
           </div>
         </div>
         <div class="schedule-note-box">
@@ -2502,7 +2544,7 @@
         <div class="schedule-topbar">
           <div class="schedule-kpis" id="scaleSummaryCards"></div>
           <div class="toolbar-actions">
-            <button class="btn btn-ghost" onclick="duplicatePreviousMonthScale()">Duplicar mês anterior</button>
+            <button class="btn btn-ghost" data-action="duplicate-previous-month-scale">Duplicar mês anterior</button>
           </div>
         </div>
         <div class="scale-board-wrap">
@@ -2531,7 +2573,7 @@
       </div>
     </section>
 
-    <section class="view" id="events">
+    <section class="view" id="events" role="tabpanel" aria-labelledby="tab-events" tabindex="0" hidden>
       <div class="event-stack">
         <div class="section glass">
           <div class="toolbar">
@@ -2556,9 +2598,9 @@
                 <option value="Concluído">Concluído</option>
                 <option value="Cancelado">Cancelado</option>
               </select>
-              <button class="btn btn-ghost" onclick="resetViewFilters('events')">Limpar filtros</button>
-              <button class="btn btn-ghost" onclick="exportEventsCsv()">Exportar CSV</button>
-              <button class="btn btn-primary" onclick="openEventModal()">Adicionar</button>
+              <button class="btn btn-ghost" data-action="reset-view-filters" data-view="events">Limpar filtros</button>
+              <button class="btn btn-ghost" data-action="export-events-csv">Exportar CSV</button>
+              <button class="btn btn-primary" data-action="open-event-modal">Adicionar</button>
             </div>
           </div>
           <div class="events-topbar">
@@ -2608,16 +2650,17 @@
           </div>
           <div class="table-wrap">
             <table class="pending-table">
+              <caption class="sr-only">Agenda consolidada do período ativo</caption>
               <thead>
                 <tr>
-                  <th>Data</th>
-                  <th>Hora</th>
-                  <th>Tipo</th>
-                  <th>Título</th>
-                  <th>Local</th>
-                  <th>Responsável</th>
-                  <th>Status</th>
-                  <th class="right">Ações</th>
+                  <th scope="col">Data</th>
+                  <th scope="col">Hora</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col">Título</th>
+                  <th scope="col">Local</th>
+                  <th scope="col">Responsável</th>
+                  <th scope="col">Status</th>
+                  <th scope="col" class="right">Ações</th>
                 </tr>
               </thead>
               <tbody id="eventsTableBody"></tbody>
@@ -2627,7 +2670,7 @@
       </div>
     </section>
 
-    <section class="view" id="settings">
+    <section class="view" id="settings" role="tabpanel" aria-labelledby="tab-settings" tabindex="0" hidden>
       <div class="grid-2">
         <div class="section glass">
           <div class="toolbar-title">
@@ -2643,8 +2686,8 @@
             <textarea id="addonTypeEditor"></textarea>
           </div>
           <div class="inline-actions">
-            <button class="btn btn-success" onclick="saveSettings()">Salvar configurações</button>
-            <button class="btn btn-ghost" onclick="resetDemoData()">Restaurar exemplo</button>
+            <button class="btn btn-success" data-action="save-settings">Salvar configurações</button>
+            <button class="btn btn-ghost" data-action="reset-demo-data">Restaurar exemplo</button>
           </div>
         </div>
         <div class="section glass">
@@ -2687,10 +2730,10 @@
             <p>Resumo do backup atual, snapshot local e validação estrutural da base.</p>
           </div>
           <div class="inline-actions">
-            <button class="btn btn-ghost" onclick="downloadData()">Exportar backup</button>
-            <button class="btn btn-ghost" onclick="saveLocalSnapshot()">Salvar snapshot local</button>
-            <button class="btn btn-ghost" onclick="restoreLocalSnapshot()">Restaurar snapshot</button>
-            <button class="btn btn-success" onclick="runSystemDiagnostics(false)">Validar sistema</button>
+            <button class="btn btn-ghost" data-action="download-data">Exportar backup</button>
+            <button class="btn btn-ghost" data-action="save-local-snapshot">Salvar snapshot local</button>
+            <button class="btn btn-ghost" data-action="restore-local-snapshot">Restaurar snapshot</button>
+            <button class="btn btn-success" data-action="run-system-diagnostics" data-silent="false">Validar sistema</button>
           </div>
           <div class="summary-list" id="backupSummaryList" style="margin-top:18px;"></div>
           <div class="summary-list" id="diagnosticSummaryList" style="margin-top:18px;"></div>
@@ -2710,8 +2753,8 @@
             <p>Validação não destrutiva dos fluxos de backup, reset e exportações CSV do período ativo.</p>
           </div>
           <div class="inline-actions">
-            <button class="btn btn-success" onclick="runFlowSmokeTests(false)">Executar autotestes</button>
-            <button class="btn btn-ghost" onclick="clearFlowSmokeTests()">Limpar relatório</button>
+            <button class="btn btn-success" data-action="run-flow-smoke-tests" data-silent="false">Executar autotestes</button>
+            <button class="btn btn-ghost" data-action="clear-flow-smoke-tests">Limpar relatório</button>
           </div>
           <div class="summary-list" id="flowSmokeList" style="margin-top:18px;"></div>
         </div>
@@ -2735,17 +2778,18 @@
       </div>
       <datalist id="teamSuggestions"></datalist>
     </section>
+    </main>
   </div>
 
-  <div class="modal" id="studentModal">
-    <div class="modal-content glass">
+  <div class="modal" id="studentModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="studentModalTitle">
+    <div class="modal-content glass" tabindex="-1">
       <div class="modal-head">
         <h2 id="studentModalTitle">Novo atendimento</h2>
-        <button class="btn btn-ghost" onclick="closeModal('studentModal')">Fechar</button>
+        <button type="button" class="btn btn-ghost" data-action="close-modal" data-modal-id="studentModal">Fechar</button>
       </div>
       <div class="field-grid">
         <div class="field"><label>Nome</label><input id="student_nome" /></div>
-        <div class="field"><label>Matrícula/CPF</label><input id="student_matricula" /></div>
+        <div class="field"><label>Número da Matrícula</label><input id="student_matricula" inputmode="numeric" pattern="[0-9]*" placeholder="Número da Matrícula" /></div>
         <div class="field"><label>Última visita</label><input id="student_ultimaVisita" type="date" /></div>
         <div class="field"><label>Hora da visita</label><input id="student_horaVisita" type="time" /></div>
         <div class="field"><label>Início</label><input id="student_inicio" type="date" /></div>
@@ -2766,20 +2810,20 @@
       </div>
       <div class="field-stack" style="margin-top:12px;"><label>Observações</label><textarea id="student_observacoes"></textarea></div>
       <div class="inline-actions">
-        <button class="btn btn-success" onclick="saveStudent()">Salvar atendimento</button>
+        <button type="button" class="btn btn-success" data-action="save-student">Salvar atendimento</button>
       </div>
     </div>
   </div>
 
-  <div class="modal" id="pendingModal">
-    <div class="modal-content glass">
+  <div class="modal" id="pendingModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="pendingModalTitle">
+    <div class="modal-content glass" tabindex="-1">
       <div class="modal-head">
         <h2 id="pendingModalTitle">Nova pendência</h2>
-        <button class="btn btn-ghost" onclick="closeModal('pendingModal')">Fechar</button>
+        <button type="button" class="btn btn-ghost" data-action="close-modal" data-modal-id="pendingModal">Fechar</button>
       </div>
       <div class="field-grid">
         <div class="field"><label>Nome</label><input id="pending_nome" /></div>
-        <div class="field"><label>Matrícula/CPF</label><input id="pending_matricula" /></div>
+        <div class="field"><label>Número da Matrícula</label><input id="pending_matricula" inputmode="numeric" pattern="[0-9]*" placeholder="Número da Matrícula" /></div>
         <div class="field"><label>Hostess</label><select id="pending_hostess"></select></div>
         <div class="field"><label>Data solicitação</label><input id="pending_data" type="date" /></div>
         <div class="field"><label>Status</label>
@@ -2793,17 +2837,17 @@
       <div class="field-stack" style="margin-top:12px;"><label>Pendência</label><textarea id="pending_desc"></textarea></div>
       <div class="field-stack"><label>Resposta</label><textarea id="pending_resposta"></textarea></div>
       <div class="inline-actions">
-        <button class="btn btn-success" onclick="savePending()">Salvar pendência</button>
+        <button type="button" class="btn btn-success" data-action="save-pending">Salvar pendência</button>
       </div>
     </div>
   </div>
 
 
-  <div class="modal" id="scaleModal">
-    <div class="modal-content glass">
+  <div class="modal" id="scaleModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="scaleModalTitle">
+    <div class="modal-content glass" tabindex="-1">
       <div class="modal-head">
         <h2 id="scaleModalTitle">Novo dia de escala</h2>
-        <button class="btn btn-ghost" onclick="closeModal('scaleModal')">Fechar</button>
+        <button type="button" class="btn btn-ghost" data-action="close-modal" data-modal-id="scaleModal">Fechar</button>
       </div>
       <div class="field-grid">
         <div class="field"><label>Dia</label><input id="scale_date" type="date" /></div>
@@ -2827,20 +2871,20 @@
           <h2 style="font-size:16px;margin:0;">Professores escalados</h2>
           <p>Adicione quantas linhas forem necessárias para o dia.</p>
         </div>
-        <button class="btn btn-ghost btn-xs" type="button" onclick="addScaleShiftRow()">+ Linha de professor</button>
+        <button class="btn btn-ghost btn-xs" type="button" data-action="add-scale-shift-row">+ Linha de professor</button>
       </div>
       <div class="shift-editor-list" id="scaleShiftRows"></div>
       <div class="inline-actions">
-        <button class="btn btn-success" onclick="saveScaleDay()">Salvar dia da escala</button>
+        <button type="button" class="btn btn-success" data-action="save-scale-day">Salvar dia da escala</button>
       </div>
     </div>
   </div>
 
-  <div class="modal" id="eventModal">
-    <div class="modal-content glass">
+  <div class="modal" id="eventModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="eventModalTitle">
+    <div class="modal-content glass" tabindex="-1">
       <div class="modal-head">
         <h2 id="eventModalTitle">Novo evento / ação</h2>
-        <button class="btn btn-ghost" onclick="closeModal('eventModal')">Fechar</button>
+        <button type="button" class="btn btn-ghost" data-action="close-modal" data-modal-id="eventModal">Fechar</button>
       </div>
       <div class="field-grid">
         <div class="field"><label>Data</label><input id="event_date" type="date" /></div>
@@ -2872,7 +2916,7 @@
         <textarea id="event_description" placeholder="Detalhes do evento, ação, campanha ou orientação operacional."></textarea>
       </div>
       <div class="inline-actions">
-        <button class="btn btn-success" onclick="saveEventItem()">Salvar evento / ação</button>
+        <button type="button" class="btn btn-success" data-action="save-event-item">Salvar evento / ação</button>
       </div>
     </div>
   </div>
@@ -2896,6 +2940,7 @@
 
   <script>
     const STORAGE_KEY = 'recepcao-smartfit-dashboard-v24';
+    const STORE_VERSION = 3;
     const LEGACY_STORAGE_KEYS = []; // v24 usa armazenamento isolado para garantir a carga dos dados automáticos de teste.
     const APP_VERSION = 'v33';
     const LOCAL_SNAPSHOT_KEY = 'controle_recepcao_app_snapshot_v33';
@@ -2904,20 +2949,23 @@
     const MONTH_NAMES = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
     const UI_KEY = 'controle_recepcao_app_ui_v33';
 
-    
+    function readStoredValue(key) {
+      return localStorage.getItem(key);
+    }
 
-    function getUIState() {
+    function readStoredJson(key, fallback = null) {
       try {
-        return JSON.parse(localStorage.getItem(UI_KEY) || '{}');
+        const raw = readStoredValue(key);
+        return raw ? JSON.parse(raw) : fallback;
       } catch {
-        return {};
+        return fallback;
       }
     }
 
-    // ─── safeLocalSet: wrapper centralizado para localStorage.setItem ───────────
+    // ─── writeStoredValue: wrapper centralizado para localStorage.setItem ───────
     // Trata QuotaExceededError em qualquer ponto do sistema e preserva backup
     // bruto do dado corrompido antes de sobrescrever, evitando perda silenciosa.
-    function safeLocalSet(key, value, onQuotaMessage) {
+    function writeStoredValue(key, value, onQuotaMessage) {
       try {
         localStorage.setItem(key, value);
         return true;
@@ -2928,6 +2976,33 @@
         }
         throw err;
       }
+    }
+
+    function writeStoredJson(key, value, onQuotaMessage) {
+      return writeStoredValue(key, JSON.stringify(value), onQuotaMessage);
+    }
+
+    function removeStoredValue(key) {
+      localStorage.removeItem(key);
+    }
+
+    function hasStoredValue(key) {
+      return readStoredValue(key) !== null;
+    }
+
+    function getStoreVersion(store) {
+      const version = Number(store?.version);
+      return Number.isInteger(version) && version > 0 ? version : 0;
+    }
+
+    function setStoreVersion(store, version) {
+      if (!store || typeof store !== 'object') return store;
+      store.version = Number(version) || 0;
+      return store;
+    }
+
+    function getUIState() {
+      return readStoredJson(UI_KEY, {});
     }
 
     // ─── sanitizeDeep: higieniza strings recursivamente antes da importação ─────
@@ -2946,7 +3021,7 @@
 
     function saveUIState(patch = {}) {
       const next = sanitizeUIState({ ...getUIState(), ...patch });
-      safeLocalSet(UI_KEY, JSON.stringify(next));
+      writeStoredJson(UI_KEY, next);
       return next;
     }
 
@@ -2968,7 +3043,7 @@
         next.activeTab = 'dashboard';
         changed = true;
       }
-      if (changed) safeLocalSet(UI_KEY, JSON.stringify(next));
+      if (changed) writeStoredJson(UI_KEY, next);
       return next;
     }
 
@@ -2980,8 +3055,14 @@
         const isActive = b.dataset.tab === tab;
         b.classList.toggle('active', isActive);
         b.setAttribute('aria-selected', String(isActive));
+        b.setAttribute('tabindex', isActive ? '0' : '-1');
       });
-      document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === tab));
+      document.querySelectorAll('.view').forEach(v => {
+        const isActive = v.id === tab;
+        v.classList.toggle('active', isActive);
+        v.hidden = !isActive;
+        v.setAttribute('aria-hidden', String(!isActive));
+      });
       if (!silent) {
         saveUIState({ activeTab: tab });
         target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -3270,7 +3351,6 @@
 
     function normalizeStore(store) {
       store ||= {};
-      store.version = 3;
       store.activePeriod ||= getInitialPeriodKey();
       store.periods ||= {};
       store.archives ||= {};
@@ -3291,62 +3371,118 @@
       return periods;
     }
 
-    function getData() {
-      const tryParse = raw => {
+    function getDefaultStore() {
+      const initialKey = getInitialPeriodKey();
+      return sanitizeStore({
+        version: STORE_VERSION,
+        activePeriod: initialKey,
+        periods: seedYear(String(initialKey).split('-')[0]),
+        archives: {}
+      });
+    }
+
+    function migrateStoreToV1(store) {
+      if (!store || typeof store !== 'object') return null;
+      return setStoreVersion(store, 1);
+    }
+
+    function migrateStoreToV2(store) {
+      if (!store || typeof store !== 'object') return null;
+      return setStoreVersion(store, 2);
+    }
+
+    function migrateStoreToV3(store) {
+      if (!store || typeof store !== 'object') return null;
+      return setStoreVersion(store, 3);
+    }
+
+    function migrateStore(store) {
+      if (!store || typeof store !== 'object') return null;
+      let nextStore = store;
+      const currentVersion = getStoreVersion(nextStore);
+
+      if (currentVersion < 1) {
+        nextStore = migrateStoreToV1(nextStore);
+      }
+      if (getStoreVersion(nextStore) < 2) {
+        nextStore = migrateStoreToV2(nextStore);
+      }
+      if (getStoreVersion(nextStore) < 3) {
+        nextStore = migrateStoreToV3(nextStore);
+      }
+
+      if (getStoreVersion(nextStore) !== STORE_VERSION) return null;
+      return nextStore;
+    }
+
+    function sanitizeStore(parsed) {
+      if (!parsed) return null;
+      if (parsed && parsed.settings && parsed.students) {
+        normalizeData(parsed);
+        const currentKey = getInitialPeriodKey();
+        return normalizeStore(setStoreVersion({
+          activePeriod: currentKey,
+          periods: { [currentKey]: parsed },
+          archives: {}
+        }, getStoreVersion(parsed)));
+      }
+      if (parsed.periods && typeof parsed.periods === 'object') {
+        const store = normalizeStore(parsed);
+        const currentYear = String(store.activePeriod || getInitialPeriodKey()).split('-')[0];
+        Object.entries(seedYear(currentYear)).forEach(([key, period]) => {
+          if (!store.periods[key]) store.periods[key] = period;
+        });
+        return store;
+      }
+      return null;
+    }
+
+    function loadStore() {
+      const parseStoreValue = key => {
+        const raw = readStoredValue(key);
         if (!raw) return null;
         try {
           return JSON.parse(raw);
         } catch {
-          // Preserva backup bruto antes de descartar dado corrompido
           const backupKey = `${STORAGE_KEY}_corrompido_${Date.now()}`;
-          safeLocalSet(backupKey, raw || '', 'Armazenamento cheio — não foi possível preservar backup do dado corrompido.');
+          writeStoredValue(backupKey, raw || '', 'Armazenamento cheio — não foi possível preservar backup do dado corrompido.');
           return null;
         }
       };
 
-      const makeFreshStore = () => {
-        const initialKey = getInitialPeriodKey();
-        const store = normalizeStore({
-          activePeriod: initialKey,
-          periods: seedYear(String(initialKey).split('-')[0]),
-          archives: {}
-        });
-        safeLocalSet(STORAGE_KEY, JSON.stringify(store));
-        return store;
-      };
-
-      const hydrate = parsed => {
-        if (!parsed) return null;
-        if (parsed && parsed.settings && parsed.students) {
-          normalizeData(parsed);
-          const currentKey = getInitialPeriodKey();
-          const store = normalizeStore({
-            activePeriod: currentKey,
-            periods: { [currentKey]: parsed },
-            archives: {}
-          });
-          safeLocalSet(STORAGE_KEY, JSON.stringify(store));
-          return store;
-        }
-        if (parsed.periods && typeof parsed.periods === 'object') {
-          const store = normalizeStore(parsed);
-          const currentYear = String(store.activePeriod || getInitialPeriodKey()).split('-')[0];
-          Object.entries(seedYear(currentYear)).forEach(([key, period]) => { if (!store.periods[key]) store.periods[key] = period; });
-          safeLocalSet(STORAGE_KEY, JSON.stringify(store));
-          return store;
-        }
-        return null;
-      };
-
-      const currentStore = hydrate(tryParse(localStorage.getItem(STORAGE_KEY)));
-      if (currentStore) return currentStore;
-
-      for (const legacyKey of LEGACY_STORAGE_KEYS) {
-        const legacyStore = hydrate(tryParse(localStorage.getItem(legacyKey)));
-        if (legacyStore) return legacyStore;
+      const currentStore = sanitizeStore(migrateStore(parseStoreValue(STORAGE_KEY)));
+      if (currentStore) {
+        saveStore(currentStore, true);
+        return currentStore;
       }
 
-      return makeFreshStore();
+      for (const legacyKey of LEGACY_STORAGE_KEYS) {
+        const legacyStore = sanitizeStore(migrateStore(parseStoreValue(legacyKey)));
+        if (legacyStore) {
+          saveStore(legacyStore, true);
+          return legacyStore;
+        }
+      }
+
+      const defaultStore = getDefaultStore();
+      saveStore(defaultStore, true);
+      return defaultStore;
+    }
+
+    function saveStore(storeLike, silent = false) {
+      const storeToSave = sanitizeStore(storeLike) || getDefaultStore();
+      setStoreVersion(storeToSave, STORE_VERSION);
+      const ok = writeStoredJson(
+        STORAGE_KEY,
+        storeToSave,
+        'Armazenamento local cheio. Exporte um backup e limpe dados antigos em Configurações.'
+      );
+      if (ok && !silent) showSaveToast();
+      return ok;
+    }
+
+    function getData() {
+      return loadStore();
     }
 
     let saveToastTimer = null;
@@ -3363,17 +3499,248 @@
     function saveData(silent = false) {
       storage.activePeriod = currentPeriodKey;
       storage.periods[currentPeriodKey] = state;
-      const ok = safeLocalSet(
-        STORAGE_KEY,
-        JSON.stringify(storage),
-        'Armazenamento local cheio. Exporte um backup e limpe dados antigos em Configurações.'
-      );
-      if (ok && !silent) showSaveToast();
+      saveStore(storage, silent);
     }
 
     function shortText(value, max = 120) {
       const text = String(value ?? '').trim();
       return text.length > max ? `${text.slice(0, Math.max(0, max - 1)).trimEnd()}…` : text;
+    }
+
+    function isNonEmptyString(value) {
+      return String(value ?? '').trim().length > 0;
+    }
+
+    function isValidNumber(value) {
+      const normalized = Number(value);
+      return Number.isFinite(normalized);
+    }
+
+    function isPositiveNumber(value) {
+      return isValidNumber(value) && Number(value) > 0;
+    }
+
+    function isValidDateValue(value) {
+      if (!isNonEmptyString(value)) return false;
+      const timestamp = new Date(`${String(value).trim()}T00:00:00`).getTime();
+      return Number.isFinite(timestamp);
+    }
+
+    function createValidationResult() {
+      return {
+        isValid: true,
+        errors: {}
+      };
+    }
+
+    function normalizeNumericId(value) {
+      return String(value ?? '').replace(/\D+/g, '');
+    }
+
+    function validateStudent(data) {
+      const result = createValidationResult();
+      if (isNonEmptyString(data.rawMatricula) && data.matricula !== data.rawMatricula) {
+        result.isValid = false;
+        result.errors.matricula = 'O número da matrícula deve conter apenas dígitos.';
+      }
+      if (!isNonEmptyString(data.nome)) {
+        result.isValid = false;
+        result.errors.nome = 'Preencha ao menos o nome do aluno.';
+      }
+      return result;
+    }
+
+    function validatePending(data) {
+      const result = createValidationResult();
+      if (isNonEmptyString(data.rawMatricula) && data.matricula !== data.rawMatricula) {
+        result.isValid = false;
+        result.errors.matricula = 'O número da matrícula deve conter apenas dígitos.';
+      }
+      if (!isNonEmptyString(data.nome) || !isNonEmptyString(data.pendencia)) {
+        result.isValid = false;
+        result.errors.required = 'Preencha ao menos nome e pendência.';
+      }
+      if (isNonEmptyString(data.data) && isValidDateValue(data.data) && !isDateInActivePeriod(data.data)) {
+        result.isValid = false;
+        result.errors.data = `A data da pendência deve pertencer a ${getPeriodLabel()}.`;
+      }
+      return result;
+    }
+
+    function getStudentFormData() {
+      const rawMatricula = document.getElementById('student_matricula').value.trim();
+      const matricula = normalizeNumericId(rawMatricula);
+      return {
+        id: editingStudentId || crypto.randomUUID(),
+        nome: document.getElementById('student_nome').value.trim(),
+        rawMatricula,
+        matricula,
+        ultimaVisita: document.getElementById('student_ultimaVisita').value,
+        horaVisita: document.getElementById('student_horaVisita').value,
+        inicio: document.getElementById('student_inicio').value,
+        avisoNps: document.getElementById('student_avisoNps').value,
+        atendimento: document.getElementById('student_atendimento').value,
+        feedback: document.getElementById('student_feedback').value,
+        addon: document.getElementById('student_addon').value,
+        observacoes: document.getElementById('student_observacoes').value.trim()
+      };
+    }
+
+    function getPendingFormData() {
+      const rawMatricula = document.getElementById('pending_matricula').value.trim();
+      const matricula = normalizeNumericId(rawMatricula);
+      return {
+        id: editingPendingId || crypto.randomUUID(),
+        nome: document.getElementById('pending_nome').value.trim(),
+        rawMatricula,
+        matricula,
+        pendencia: document.getElementById('pending_desc').value.trim(),
+        data: document.getElementById('pending_data').value,
+        hostess: document.getElementById('pending_hostess').value,
+        resposta: document.getElementById('pending_resposta').value.trim(),
+        status: document.getElementById('pending_status').value
+      };
+    }
+
+    function buildStudentEntity(formData, existingStudent) {
+      return {
+        id: existingStudent?.id || formData.id,
+        nome: formData.nome,
+        matricula: formData.matricula,
+        ultimaVisita: formData.ultimaVisita,
+        horaVisita: formData.horaVisita,
+        inicio: formData.inicio,
+        avisoNps: formData.avisoNps,
+        atendimento: formData.atendimento,
+        feedback: formData.feedback,
+        addon: formData.addon,
+        observacoes: formData.observacoes
+      };
+    }
+
+    function buildPendingEntity(formData, existingPending) {
+      return {
+        id: existingPending?.id || formData.id,
+        nome: formData.nome,
+        matricula: formData.matricula,
+        pendencia: formData.pendencia,
+        data: formData.data,
+        hostess: formData.hostess,
+        resposta: formData.resposta,
+        status: formData.status
+      };
+    }
+
+    function upsertStudent(store, student) {
+      const idx = store.students.findIndex(item => item.id === student.id);
+      const students = idx >= 0
+        ? store.students.map((item, index) => index === idx ? student : item)
+        : [student, ...store.students];
+      return {
+        ...store,
+        students
+      };
+    }
+
+    function upsertPending(store, pending) {
+      const idx = store.pending.findIndex(item => item.id === pending.id);
+      const pendingItems = idx >= 0
+        ? store.pending.map((item, index) => index === idx ? pending : item)
+        : [pending, ...store.pending];
+      return {
+        ...store,
+        pending: pendingItems
+      };
+    }
+
+    function createValidationFailureResult(validation) {
+      return { ok: false, validation };
+    }
+
+    function createSaveSuccessResult(nextState, entity) {
+      return { ok: true, nextState, entity };
+    }
+
+    function applyStudentSave(store, formData, existingStudent) {
+      const validation = validateStudent(formData);
+      if (!validation.isValid) {
+        return createValidationFailureResult(validation);
+      }
+      const entity = buildStudentEntity(formData, existingStudent);
+      const nextState = upsertStudent(store, entity);
+      return createSaveSuccessResult(nextState, entity);
+    }
+
+    function applyPendingSave(store, formData, existingPending) {
+      const validation = validatePending(formData);
+      if (!validation.isValid) {
+        return createValidationFailureResult(validation);
+      }
+      const entity = buildPendingEntity(formData, existingPending);
+      const nextState = upsertPending(store, entity);
+      return createSaveSuccessResult(nextState, entity);
+    }
+
+    function getEventFormData() {
+      return {
+        id: editingEventId || crypto.randomUUID(),
+        date: document.getElementById('event_date').value,
+        time: document.getElementById('event_time').value,
+        type: document.getElementById('event_type').value,
+        title: document.getElementById('event_title').value.trim(),
+        place: document.getElementById('event_place').value.trim(),
+        owner: document.getElementById('event_owner').value.trim(),
+        status: document.getElementById('event_status').value,
+        description: document.getElementById('event_description').value.trim()
+      };
+    }
+
+    function validateEvent(data) {
+      const result = createValidationResult();
+      if (!isNonEmptyString(data.date) || !isNonEmptyString(data.title)) {
+        result.isValid = false;
+        result.errors.required = 'Preencha ao menos data e título.';
+      }
+      if (isNonEmptyString(data.date) && !isDateInActivePeriod(data.date)) {
+        result.isValid = false;
+        result.errors.date = `A data do evento/ação deve pertencer a ${getPeriodLabel()}.`;
+      }
+      return result;
+    }
+
+    function buildEventEntity(formData, existingEvent) {
+      return {
+        id: existingEvent?.id || formData.id,
+        date: formData.date,
+        time: formData.time,
+        type: formData.type,
+        title: formData.title,
+        place: formData.place,
+        owner: formData.owner,
+        status: formData.status,
+        description: formData.description
+      };
+    }
+
+    function upsertEvent(store, eventItem) {
+      const idx = store.events.findIndex(item => item.id === eventItem.id);
+      const events = idx >= 0
+        ? store.events.map((item, index) => index === idx ? eventItem : item)
+        : [...store.events, eventItem];
+      return {
+        ...store,
+        events: events.slice().sort(compareByDateTime)
+      };
+    }
+
+    function applyEventSave(store, formData, existingEvent) {
+      const validation = validateEvent(formData);
+      if (!validation.isValid) {
+        return createValidationFailureResult(validation);
+      }
+      const entity = buildEventEntity(formData, existingEvent);
+      const nextState = upsertEvent(store, entity);
+      return createSaveSuccessResult(nextState, entity);
     }
 
     function slugify(value) {
@@ -3435,7 +3802,7 @@
       data.students = data.students.map(student => ({
         id: student.id || crypto.randomUUID(),
         nome: student.nome || '',
-        matricula: student.matricula || '',
+        matricula: normalizeNumericId(student.matricula),
         ultimaVisita: student.ultimaVisita || '',
         horaVisita: student.horaVisita || student.horario || '',
         inicio: student.inicio || '',
@@ -3449,7 +3816,7 @@
       data.pending = data.pending.map(item => ({
         id: item.id || crypto.randomUUID(),
         nome: item.nome || '',
-        matricula: item.matricula || '',
+        matricula: normalizeNumericId(item.matricula),
         pendencia: item.pendencia || '',
         data: item.data || '',
         hostess: item.hostess || data.settings.team[0] || '',
@@ -3521,9 +3888,9 @@
       })[ch]);
     }
 
-    let storage = getData();
-    let currentPeriodKey = storage.activePeriod;
-    let state = storage.periods[currentPeriodKey];
+    let storage;
+    let currentPeriodKey;
+    let state;
     let editingStudentId = null;
     let editingPendingId = null;
     let editingScaleId = null;
@@ -3691,14 +4058,216 @@
       alert(`Escala de ${getPeriodLabel(previousKey)} duplicada para ${getPeriodLabel()}.`);
     }
 
-    function openModal(id) { document.getElementById(id).classList.add('show'); }
-    function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      if (!modal) return;
+      modal.classList.add('show');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      modal.querySelector('.modal-content')?.focus();
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (!modal) return;
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden', 'true');
+      if (!document.querySelector('.modal.show')) document.body.style.overflow = '';
+    }
     function openStudentModal() { clearStudentForm(); openModal('studentModal'); }
     function openPendingModal() { clearPendingForm(); openModal('pendingModal'); }
 
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => setActiveTab(btn.dataset.tab));
-    });
+    function bindUIEvents() {
+      document.addEventListener('click', e => {
+        const tabButton = e.target.closest('.tab-btn');
+        if (tabButton) {
+          setActiveTab(tabButton.dataset.tab);
+          return;
+        }
+
+        const actionEl = e.target.closest('[data-action]');
+        if (!actionEl) return;
+
+        switch (actionEl.dataset.action) {
+          case 'reset-selected-month':
+            resetSelectedMonth();
+            break;
+          case 'close-current-month':
+            closeCurrentMonth();
+            break;
+          case 'open-student-modal':
+            openStudentModal();
+            break;
+          case 'open-pending-modal':
+            openPendingModal();
+            break;
+          case 'download-data':
+            downloadData();
+            break;
+          case 'add-person':
+            addPerson();
+            break;
+          case 'export-pending-csv':
+            exportPendingCsv();
+            break;
+          case 'register-mention':
+            registerMention();
+            break;
+          case 'save-nps-observations':
+            saveNpsObservations();
+            break;
+          case 'reset-view-filters':
+            resetViewFilters(actionEl.dataset.view);
+            break;
+          case 'export-scale-csv':
+            exportScaleCsv();
+            break;
+          case 'open-scale-modal':
+            openScaleModal();
+            break;
+          case 'duplicate-previous-month-scale':
+            duplicatePreviousMonthScale();
+            break;
+          case 'export-events-csv':
+            exportEventsCsv();
+            break;
+          case 'open-event-modal':
+            openEventModal();
+            break;
+          case 'save-settings':
+            saveSettings();
+            break;
+          case 'reset-demo-data':
+            resetDemoData();
+            break;
+          case 'save-local-snapshot':
+            saveLocalSnapshot();
+            break;
+          case 'restore-local-snapshot':
+            restoreLocalSnapshot();
+            break;
+          case 'run-system-diagnostics':
+            runSystemDiagnostics(actionEl.dataset.silent === 'true');
+            break;
+          case 'run-flow-smoke-tests':
+            runFlowSmokeTests(actionEl.dataset.silent === 'true');
+            break;
+          case 'clear-flow-smoke-tests':
+            clearFlowSmokeTests();
+            break;
+          case 'close-modal':
+            closeModal(actionEl.dataset.modalId);
+            break;
+          case 'save-student':
+            saveStudent();
+            break;
+          case 'save-pending':
+            savePending();
+            break;
+          case 'add-scale-shift-row':
+            addScaleShiftRow();
+            break;
+          case 'save-scale-day':
+            saveScaleDay();
+            break;
+          case 'save-event-item':
+            saveEventItem();
+            break;
+          case 'set-active-tab':
+            setActiveTab(actionEl.dataset.tabTarget);
+            break;
+          case 'edit-student':
+            editStudent(actionEl.dataset.id);
+            break;
+          case 'remove-student':
+            removeStudent(actionEl.dataset.id);
+            break;
+          case 'edit-pending':
+            editPending(actionEl.dataset.id);
+            break;
+          case 'remove-pending':
+            removePending(actionEl.dataset.id);
+            break;
+          case 'adjust-mention':
+            adjustMention(actionEl.dataset.id, Number(actionEl.dataset.delta || 0));
+            break;
+          case 'remove-mention':
+            removeMention(actionEl.dataset.id);
+            break;
+          case 'remove-scale-shift-row':
+            removeScaleShiftRow(Number(actionEl.dataset.index || -1));
+            break;
+          case 'edit-scale-day':
+            editScaleDay(actionEl.dataset.id);
+            break;
+          case 'remove-scale-day':
+            removeScaleDay(actionEl.dataset.id);
+            break;
+          case 'edit-event-item':
+            editEventItem(actionEl.dataset.id);
+            break;
+          case 'duplicate-event-item':
+            duplicateEventItem(actionEl.dataset.id);
+            break;
+          case 'remove-event-item':
+            removeEventItem(actionEl.dataset.id);
+            break;
+          default:
+            break;
+        }
+      });
+
+      document.addEventListener('change', e => {
+        const target = e.target.closest('[data-change-action]');
+        if (!target) return;
+
+        switch (target.dataset.changeAction) {
+          case 'update-student-inline':
+            updateStudentInline(target.dataset.id, target.dataset.field, e.target.value);
+            break;
+          case 'update-addon':
+            updateAddon(target.dataset.person, target.dataset.addonType, Number(target.dataset.index || 0), e.target.value);
+            break;
+          case 'set-mention-count':
+            setMentionCount(target.dataset.id, e.target.value);
+            break;
+          default:
+            break;
+        }
+      });
+
+      document.addEventListener('input', e => {
+        const target = e.target.closest('[data-input-action]');
+        if (!target) return;
+
+        switch (target.dataset.inputAction) {
+          case 'update-nps-score':
+            updateNpsScore(e.target.value, target.dataset.source);
+            break;
+          case 'update-nps-goal':
+            updateNpsGoal(target.dataset.field, e.target.value);
+            break;
+          default:
+            break;
+        }
+      });
+
+      document.addEventListener('focusout', e => {
+        const target = e.target.closest('[data-blur-action]');
+        if (!target) return;
+
+        switch (target.dataset.blurAction) {
+          case 'rename-person':
+            renamePerson(target.dataset.person, e.target.textContent);
+            break;
+          case 'rename-mention':
+            renameMention(target.dataset.id, e.target.value);
+            break;
+          default:
+            break;
+        }
+      });
+    }
 
     function studentStatusPill(value) {
       const cls = value === 'Respondeu' ? 'ok' : value === 'Não respondeu' ? 'bad' : 'warn';
@@ -4133,12 +4702,12 @@
         <div class="card"><div class="card-label">Feedback positivo</div><div class="card-value">${formatPct(withFeedback ? positive / withFeedback : 0)}</div><div class="card-foot">Somente respostas recebidas</div></div>
         <div class="card"><div class="card-label">NPS atual</div><div class="card-value">${state.nps.score}</div><div class="card-foot">${esc(getRiskBand(state.nps.score).label)}</div></div>
         <div class="card"><div class="card-label">Pendências abertas</div><div class="card-value">${openPending}</div><div class="card-foot">${pendingDone}/${pendingTotal} concluídas</div></div>
-        <div class="card card-nav" onclick="setActiveTab('scale')">
+        <div class="card card-nav" data-action="set-active-tab" data-tab-target="scale">
           <div class="card-label">Próxima escala</div>
           <div class="card-value">${nextScale ? esc(getPeriodDisplayDate(nextScale.date)) : 'Sem escala'}</div>
           <div class="card-foot"><strong>${nextScale ? esc(getScaleSummaryText(nextScale)) : 'Ir para aba Escala'}</strong></div>
         </div>
-        <div class="card card-nav" onclick="setActiveTab('events')">
+        <div class="card card-nav" data-action="set-active-tab" data-tab-target="events">
           <div class="card-label">Próximo evento / ação</div>
           <div class="card-value">${nextEvent ? esc(nextEvent.title) : 'Sem agenda'}</div>
           <div class="card-foot"><strong>${nextEvent ? esc(getEventSummaryText(nextEvent)) : 'Ir para aba Eventos e ações'}</strong></div>
@@ -4222,8 +4791,8 @@
         <tr>
           <td><strong>${esc(s.nome)}</strong></td>
           <td>${esc(s.matricula || '-')}</td>
-          <td><input class="table-input" type="date" value="${esc(s.ultimaVisita || '')}" onchange="updateStudentInline('${s.id}', 'ultimaVisita', this.value)" /></td>
-          <td><input class="table-input" type="time" value="${esc(s.horaVisita || '')}" onchange="updateStudentInline('${s.id}', 'horaVisita', this.value)" /></td>
+          <td><input class="table-input" type="date" value="${esc(s.ultimaVisita || '')}" data-change-action="update-student-inline" data-id="${s.id}" data-field="ultimaVisita" /></td>
+          <td><input class="table-input" type="time" value="${esc(s.horaVisita || '')}" data-change-action="update-student-inline" data-id="${s.id}" data-field="horaVisita" /></td>
           <td>${formatDate(s.inicio)}</td>
           <td>${npsPill(s.avisoNps)}</td>
           <td>${esc(s.atendimento || '-')}</td>
@@ -4231,8 +4800,8 @@
           <td>${s.addon ? `<span class="pill info">${esc(s.addon)}</span>` : '<span class="muted">Nenhum</span>'}</td>
           <td>${renderEllipsisCell(s.observacoes, '-')}</td>
           <td class="right">
-            <button class="btn btn-ghost btn-xs" onclick="editStudent('${s.id}')">Editar</button>
-            <button class="btn btn-danger btn-xs" onclick="removeStudent('${s.id}')">Excluir</button>
+            <button class="btn btn-ghost btn-xs" data-action="edit-student" data-id="${s.id}">Editar</button>
+            <button class="btn btn-danger btn-xs" data-action="remove-student" data-id="${s.id}">Excluir</button>
           </td>
         </tr>
       `).join('') : `<tr><td colspan="11"><div class="empty">Nenhum atendimento encontrado.</div></td></tr>`;
@@ -4284,30 +4853,28 @@
       document.getElementById('student_addon').value = '';
     }
 
-    function saveStudent() {
-      const payload = {
-        id: editingStudentId || crypto.randomUUID(),
-        nome: document.getElementById('student_nome').value.trim(),
-        matricula: document.getElementById('student_matricula').value.trim(),
-        ultimaVisita: document.getElementById('student_ultimaVisita').value,
-        horaVisita: document.getElementById('student_horaVisita').value,
-        inicio: document.getElementById('student_inicio').value,
-        avisoNps: document.getElementById('student_avisoNps').value,
-        atendimento: document.getElementById('student_atendimento').value,
-        feedback: document.getElementById('student_feedback').value,
-        addon: document.getElementById('student_addon').value,
-        observacoes: document.getElementById('student_observacoes').value.trim()
-      };
-      if (!payload.nome) return alert('Preencha ao menos o nome do aluno.');
-      const idx = state.students.findIndex(s => s.id === payload.id);
-      const previous = idx >= 0 ? structuredClone(state.students[idx]) : null;
-      if (previous) applyStudentAddonLink(previous, -1);
-      applyStudentAddonLink(payload, 1);
-      if (idx >= 0) state.students[idx] = payload; else state.students.unshift(payload);
-      saveData();
+    function finalizeStudentSaveUI() {
       closeModal('studentModal');
       clearStudentForm();
+    }
+
+    function renderStudentSaveUI() {
       renderAll();
+    }
+
+    function saveStudent() {
+      const formData = getStudentFormData();
+      const idx = state.students.findIndex(s => s.id === formData.id);
+      const previous = idx >= 0 ? structuredClone(state.students[idx]) : null;
+      const result = applyStudentSave(state, formData, previous);
+      if (!result.ok) return alert(result.validation.errors.matricula || result.validation.errors.nome);
+      const payload = result.entity;
+      if (previous) applyStudentAddonLink(previous, -1);
+      applyStudentAddonLink(payload, 1);
+      state = result.nextState;
+      saveData();
+      finalizeStudentSaveUI();
+      renderStudentSaveUI();
     }
 
     function editStudent(id) {
@@ -4343,7 +4910,7 @@
       document.getElementById('addonsGrid').innerHTML = getReceptionists(state).map(person => `
         <div class="person-block">
           <div class="person-head">
-            <h3 contenteditable="true" onblur="renamePerson('${person}', this.textContent)">${esc(person)}</h3>
+            <h3 contenteditable="true" data-blur-action="rename-person" data-person="${esc(person)}">${esc(person)}</h3>
             <span class="pill info">Total do mês: ${totalAddonByPerson(person)}</span>
           </div>
           ${state.settings.addonTypes.map(type => {
@@ -4359,7 +4926,7 @@
                   ${Array.from({length:days}, (_,i) => `
                     <div class="day-cell">
                       <div class="day">Dia ${i+1}</div>
-                      <input type="number" min="0" value="${arr[i] || 0}" onchange="updateAddon('${person}','${type}',${i}, this.value)" />
+                      <input type="number" min="0" value="${arr[i] || 0}" data-change-action="update-addon" data-person="${esc(person)}" data-addon-type="${esc(type)}" data-index="${i}" />
                     </div>
                   `).join('')}
                 </div>
@@ -4501,8 +5068,8 @@
           <td>${renderEllipsisCell(p.resposta, 'Sem resposta')}</td>
           <td>${pendingPill(p.status)}</td>
           <td class="right">
-            <button class="btn btn-ghost btn-xs" onclick="editPending('${p.id}')">Editar</button>
-            <button class="btn btn-danger btn-xs" onclick="removePending('${p.id}')">Excluir</button>
+            <button class="btn btn-ghost btn-xs" data-action="edit-pending" data-id="${p.id}">Editar</button>
+            <button class="btn btn-danger btn-xs" data-action="remove-pending" data-id="${p.id}">Excluir</button>
           </td>
         </tr>
       `).join('') : `<tr><td colspan="8"><div class="empty">Nenhuma pendência encontrada.</div></td></tr>`;
@@ -4528,8 +5095,8 @@
                 <div class="foot">
                   <span class="drag-hint"><span class="drag-grip" aria-hidden="true">⋮⋮</span>Arraste para mover</span>
                   <div class="ticket-actions">
-                    <button class="btn btn-ghost btn-xs icon-btn" onclick="editPending('${item.id}')" title="Editar" draggable="false">✎</button>
-                    <button class="btn btn-danger btn-xs icon-btn" onclick="removePending('${item.id}')" title="Excluir" draggable="false">✕</button>
+                    <button class="btn btn-ghost btn-xs icon-btn" data-action="edit-pending" data-id="${item.id}" title="Editar" draggable="false">✎</button>
+                    <button class="btn btn-danger btn-xs icon-btn" data-action="remove-pending" data-id="${item.id}" title="Excluir" draggable="false">✕</button>
                   </div>
                 </div>
               </div>
@@ -4549,25 +5116,25 @@
       document.getElementById('pending_status').value = 'aberto';
     }
 
-    function savePending() {
-      const payload = {
-        id: editingPendingId || crypto.randomUUID(),
-        nome: document.getElementById('pending_nome').value.trim(),
-        matricula: document.getElementById('pending_matricula').value.trim(),
-        pendencia: document.getElementById('pending_desc').value.trim(),
-        data: document.getElementById('pending_data').value,
-        hostess: document.getElementById('pending_hostess').value,
-        resposta: document.getElementById('pending_resposta').value.trim(),
-        status: document.getElementById('pending_status').value
-      };
-      if (!payload.nome || !payload.pendencia) return alert('Preencha ao menos nome e pendência.');
-      if (payload.data && !isDateInActivePeriod(payload.data)) return alert(`A data da pendência deve pertencer a ${getPeriodLabel()}.`);
-      const idx = state.pending.findIndex(p => p.id === payload.id);
-      if (idx >= 0) state.pending[idx] = payload; else state.pending.unshift(payload);
-      saveData();
+    function finalizePendingSaveUI() {
       closeModal('pendingModal');
       clearPendingForm();
+    }
+
+    function renderPendingSaveUI() {
       renderAll();
+    }
+
+    function savePending() {
+      const formData = getPendingFormData();
+      const idx = state.pending.findIndex(p => p.id === formData.id);
+      const existing = idx >= 0 ? state.pending[idx] : null;
+      const result = applyPendingSave(state, formData, existing);
+      if (!result.ok) return alert(result.validation.errors.matricula || result.validation.errors.required || result.validation.errors.data);
+      state = result.nextState;
+      saveData();
+      finalizePendingSaveUI();
+      renderPendingSaveUI();
     }
 
     function editPending(id) {
@@ -4671,21 +5238,21 @@
         <div class="score-slider-row nps-grid-3">
           <div class="field">
             <label>Pontuação NPS</label>
-            <input id="npsScoreInput" type="number" min="0" max="100" value="${score}" oninput="updateNpsScore(this.value, 'input')" />
+            <input id="npsScoreInput" type="number" min="0" max="100" value="${score}" data-input-action="update-nps-score" data-source="input" />
           </div>
           <div class="field">
             <label>Meta mensal NPS</label>
-            <input id="npsMonthlyGoalInput" type="number" min="0" max="100" value="${monthlyGoal}" oninput="updateNpsGoal('monthlyGoal', this.value)" />
+            <input id="npsMonthlyGoalInput" type="number" min="0" max="100" value="${monthlyGoal}" data-input-action="update-nps-goal" data-field="monthlyGoal" />
           </div>
           <div class="field">
             <label>Meta semestral NPS</label>
-            <input id="npsSemesterGoalInput" type="number" min="0" max="100" value="${semesterGoal}" oninput="updateNpsGoal('semesterGoal', this.value)" />
+            <input id="npsSemesterGoalInput" type="number" min="0" max="100" value="${semesterGoal}" data-input-action="update-nps-goal" data-field="semesterGoal" />
           </div>
         </div>
         <div class="score-slider-row">
           <div class="field">
             <label>Ajuste rápido</label>
-            <input id="npsScoreRange" type="range" min="0" max="100" value="${score}" oninput="updateNpsScore(this.value, 'range')" />
+            <input id="npsScoreRange" type="range" min="0" max="100" value="${score}" data-input-action="update-nps-score" data-source="range" />
           </div>
         </div>
       `;
@@ -4700,17 +5267,17 @@
             <div class="rank-name-group">
               <div class="rank-name-line">
                 ${item.position === 1 ? '<span class="crown">👑</span>' : ''}
-                <input class="rank-name-input" value="${esc(item.name)}" onblur="renameMention('${item.id}', this.value)" />
+                <input class="rank-name-input" value="${esc(item.name)}" data-blur-action="rename-mention" data-id="${item.id}" />
                 ${trendBadge(item)}
               </div>
               <div class="rank-meta">${item.count} cita${item.count === 1 ? 'ção' : 'ções'} no mês</div>
             </div>
           </div>
           <div class="rank-actions">
-            <button class="btn btn-ghost btn-xs" onclick="adjustMention('${item.id}', -1)">-1</button>
-            <input class="count-box" type="number" min="0" value="${item.count}" onchange="setMentionCount('${item.id}', this.value)" />
-            <button class="btn btn-primary btn-xs" onclick="adjustMention('${item.id}', 1)">+1</button>
-            <button class="btn btn-danger btn-xs" onclick="removeMention('${item.id}')">Excluir</button>
+            <button class="btn btn-ghost btn-xs" data-action="adjust-mention" data-id="${item.id}" data-delta="-1">-1</button>
+            <input class="count-box" type="number" min="0" value="${item.count}" data-change-action="set-mention-count" data-id="${item.id}" />
+            <button class="btn btn-primary btn-xs" data-action="adjust-mention" data-id="${item.id}" data-delta="1">+1</button>
+            <button class="btn btn-danger btn-xs" data-action="remove-mention" data-id="${item.id}">Excluir</button>
           </div>
         </div>
       `).join('') : '<div class="empty">Ainda não há funcionários citados no NPS.</div>';
@@ -4816,7 +5383,7 @@
           <div class="field"><label>Horário</label><input data-scale-shift="time" data-index="${index}" value="${esc(shift.time || '')}" placeholder="Ex: 08h - 13h" /></div>
           <div class="field"><label>Professor</label><input data-scale-shift="name" data-index="${index}" value="${esc(shift.name || '')}" placeholder="Ex: JUNIOR" /></div>
           <div class="field"><label>Troca</label><input data-scale-shift="swap" data-index="${index}" value="${esc(shift.swap || '')}" placeholder="Se houver" /></div>
-          <button class="btn btn-danger btn-xs" type="button" onclick="removeScaleShiftRow(${index})">Excluir</button>
+          <button class="btn btn-danger btn-xs" type="button" data-action="remove-scale-shift-row" data-index="${index}">Excluir</button>
         </div>
       `).join('') : '<div class="empty">Adicione ao menos uma linha de professor para montar o dia.</div>';
 
@@ -4949,8 +5516,8 @@
                 <div class="scale-date-sub">${esc(getWeekdayLabel(item.date))} • ${esc(toneLabel(item.rowTone || 'neutral'))}</div>
                 ${item.note ? `<div class="scale-mini-note">${esc(shortText(item.note, 110))}</div>` : ''}
                 <div class="scale-action-row">
-                  <button class="btn btn-ghost btn-xs" onclick="editScaleDay('${item.id}')">Editar</button>
-                  <button class="btn btn-danger btn-xs" onclick="removeScaleDay('${item.id}')">Excluir</button>
+                  <button class="btn btn-ghost btn-xs" data-action="edit-scale-day" data-id="${item.id}">Editar</button>
+                  <button class="btn btn-danger btn-xs" data-action="remove-scale-day" data-id="${item.id}">Excluir</button>
                 </div>
               </td>` : ''}
             <td><div class="scale-cell-stack"><div class="scale-primary">${esc(shift.time || '—')}</div></div></td>
@@ -5003,8 +5570,8 @@
                   ${item.note ? `<div class="scale-board-note" style="margin-top:12px;">${esc(item.note)}</div>` : `<div class="scale-board-note" style="margin-top:12px;">Sem observações registradas.</div>`}
                 </div>
                 <div class="scale-board-actions">
-                  <button class="btn btn-ghost btn-xs" onclick="editScaleDay('${item.id}')">Editar</button>
-                  <button class="btn btn-danger btn-xs" onclick="removeScaleDay('${item.id}')">Excluir</button>
+                  <button class="btn btn-ghost btn-xs" data-action="edit-scale-day" data-id="${item.id}">Editar</button>
+                  <button class="btn btn-danger btn-xs" data-action="remove-scale-day" data-id="${item.id}">Excluir</button>
                 </div>
               </div>
             </article>
@@ -5024,6 +5591,15 @@
       document.getElementById('event_place').value = '';
       document.getElementById('event_owner').value = '';
       document.getElementById('event_description').value = '';
+    }
+
+    function finalizeEventSaveUI() {
+      closeModal('eventModal');
+      clearEventForm();
+    }
+
+    function renderEventSaveUI() {
+      renderAll();
     }
 
     function openEventModal() {
@@ -5048,27 +5624,18 @@
     }
 
     function saveEventItem() {
-      const payload = {
-        id: editingEventId || crypto.randomUUID(),
-        date: document.getElementById('event_date').value,
-        time: document.getElementById('event_time').value,
-        type: document.getElementById('event_type').value,
-        title: document.getElementById('event_title').value.trim(),
-        place: document.getElementById('event_place').value.trim(),
-        owner: document.getElementById('event_owner').value.trim(),
-        status: document.getElementById('event_status').value,
-        description: document.getElementById('event_description').value.trim()
-      };
-      if (!payload.date || !payload.title) return alert('Preencha ao menos data e título.');
-      if (!isDateInActivePeriod(payload.date)) return alert(`A data do evento/ação deve pertencer a ${getPeriodLabel()}.`);
+      const formData = getEventFormData();
+      const idx = state.events.findIndex(entry => entry.id === formData.id);
+      const existing = idx >= 0 ? state.events[idx] : null;
+      const result = applyEventSave(state, formData, existing);
+      if (!result.ok) return alert(result.validation.errors.required || result.validation.errors.date);
+      const payload = result.entity;
       const duplicate = state.events.find(entry => entry.id !== payload.id && String(entry.date || '') === String(payload.date || '') && String(entry.time || '') === String(payload.time || '') && String(entry.title || '').trim().toLowerCase() === payload.title.toLowerCase());
       if (duplicate && !confirm('Já existe um evento com o mesmo título, data e horário. Deseja salvar mesmo assim?')) return;
-      const idx = state.events.findIndex(entry => entry.id === payload.id);
-      if (idx >= 0) state.events[idx] = payload; else state.events.push(payload);
-      state.events.sort(compareByDateTime);
+      state = result.nextState;
       saveData();
-      closeModal('eventModal');
-      renderAll();
+      finalizeEventSaveUI();
+      renderEventSaveUI();
     }
 
     function removeEventItem(id) {
@@ -5136,9 +5703,9 @@
           </div>
           <div class="event-desc">${esc(shortText(item.description || 'Sem descrição adicional.', 220))}</div>
           <div class="ticket-actions">
-            <button class="btn btn-ghost btn-xs" onclick="editEventItem('${item.id}')">Editar</button>
-            <button class="btn btn-ghost btn-xs" onclick="duplicateEventItem('${item.id}')">Duplicar</button>
-            <button class="btn btn-danger btn-xs" onclick="removeEventItem('${item.id}')">Excluir</button>
+            <button class="btn btn-ghost btn-xs" data-action="edit-event-item" data-id="${item.id}">Editar</button>
+            <button class="btn btn-ghost btn-xs" data-action="duplicate-event-item" data-id="${item.id}">Duplicar</button>
+            <button class="btn btn-danger btn-xs" data-action="remove-event-item" data-id="${item.id}">Excluir</button>
           </div>
         </div>
       `).join('') : `<div class="empty">Nenhum evento ou ação encontrado para os filtros aplicados em ${esc(getPeriodLabel())}.</div>`;
@@ -5177,9 +5744,9 @@
           <td>${renderEllipsisCell(item.owner, '—')}</td>
           <td><span class="event-chip ${eventStatusClass(item.status)}">${esc(item.status || 'Programado')}</span></td>
           <td class="right">
-            <button class="btn btn-ghost btn-xs" onclick="editEventItem('${item.id}')">Editar</button>
-            <button class="btn btn-ghost btn-xs" onclick="duplicateEventItem('${item.id}')">Duplicar</button>
-            <button class="btn btn-danger btn-xs" onclick="removeEventItem('${item.id}')">Excluir</button>
+            <button class="btn btn-ghost btn-xs" data-action="edit-event-item" data-id="${item.id}">Editar</button>
+            <button class="btn btn-ghost btn-xs" data-action="duplicate-event-item" data-id="${item.id}">Duplicar</button>
+            <button class="btn btn-danger btn-xs" data-action="remove-event-item" data-id="${item.id}">Excluir</button>
           </td>
         </tr>
       `).join('') : `<tr><td colspan="8"><div class="empty">Nenhum registro na agenda com os filtros aplicados.</div></td></tr>`;
@@ -5280,7 +5847,7 @@
     function getPendingCsvRows(period = state) {
       const list = (period.pending || []).slice().sort((a, b) => compareByDateTime(a, b));
       return [
-        ['Nome', 'Matrícula/CPF', 'Pendência', 'Solicitação', 'Hostess', 'Resposta', 'Status'],
+        ['Nome', 'Matrícula', 'Pendência', 'Solicitação', 'Hostess', 'Resposta', 'Status'],
         ...list.map(item => [item.nome || '', item.matricula || '', item.pendencia || '', item.solicitacao || '', item.hostess || '', item.resposta || '', item.status || ''])
       ];
     }
@@ -5317,20 +5884,16 @@
     }
 
     function loadFlowSmokeReport() {
-      try {
-        return JSON.parse(localStorage.getItem(FLOW_TEST_REPORT_KEY) || '[]');
-      } catch {
-        return [];
-      }
+      return readStoredJson(FLOW_TEST_REPORT_KEY, []);
     }
 
     function saveFlowSmokeReport(report) {
-      safeLocalSet(FLOW_TEST_REPORT_KEY, JSON.stringify(report));
+      writeStoredJson(FLOW_TEST_REPORT_KEY, report);
       return report;
     }
 
     function clearFlowSmokeTests() {
-      localStorage.removeItem(FLOW_TEST_REPORT_KEY);
+      removeStoredValue(FLOW_TEST_REPORT_KEY);
       renderFlowSmokePanel();
       showSaveToast('✓ relatório de autotestes limpo');
     }
@@ -5449,18 +6012,17 @@
 
     function saveLocalSnapshot() {
       const snapshot = { savedAt: new Date().toISOString(), payload: buildBackupPayload() };
-      safeLocalSet(LOCAL_SNAPSHOT_KEY, JSON.stringify(snapshot), 'Armazenamento cheio. Não foi possível salvar o snapshot local.');
+      writeStoredJson(LOCAL_SNAPSHOT_KEY, snapshot, 'Armazenamento cheio. Não foi possível salvar o snapshot local.');
       renderSettings();
       showSaveToast('✓ snapshot local salvo');
       return snapshot;
     }
 
     function restoreLocalSnapshot() {
-      const raw = localStorage.getItem(LOCAL_SNAPSHOT_KEY);
-      if (!raw) return alert('Nenhum snapshot local foi salvo ainda.');
+      const snapshot = readStoredJson(LOCAL_SNAPSHOT_KEY, null);
+      if (!snapshot) return alert('Nenhum snapshot local foi salvo ainda.');
       if (!confirm('Deseja restaurar o último snapshot local? Isso substituirá o estado atual.')) return;
       try {
-        const snapshot = JSON.parse(raw);
         const summary = applyImportedStore(snapshot.payload || snapshot);
         alert(`Snapshot restaurado com sucesso. ${summary.periods} períodos carregados.`);
       } catch {
@@ -5469,15 +6031,11 @@
     }
 
     function loadSystemReport() {
-      try {
-        return JSON.parse(localStorage.getItem(SYSTEM_REPORT_KEY) || '[]');
-      } catch {
-        return [];
-      }
+      return readStoredJson(SYSTEM_REPORT_KEY, []);
     }
 
     function saveSystemReport(report) {
-      safeLocalSet(SYSTEM_REPORT_KEY, JSON.stringify(report));
+      writeStoredJson(SYSTEM_REPORT_KEY, report);
       return report;
     }
 
@@ -5520,8 +6078,8 @@
         },
         {
           label: 'Snapshot local disponível',
-          status: localStorage.getItem(LOCAL_SNAPSHOT_KEY) ? 'ok' : 'info',
-          detail: localStorage.getItem(LOCAL_SNAPSHOT_KEY) ? 'Existe um snapshot local pronto para restauração rápida.' : 'Nenhum snapshot local salvo ainda.'
+          status: hasStoredValue(LOCAL_SNAPSHOT_KEY) ? 'ok' : 'info',
+          detail: hasStoredValue(LOCAL_SNAPSHOT_KEY) ? 'Existe um snapshot local pronto para restauração rápida.' : 'Nenhum snapshot local salvo ainda.'
         }
       ];
       saveSystemReport(report);
@@ -5540,7 +6098,7 @@
       const summary = getBackupSummary();
       let snapshotText = 'Nenhum snapshot local salvo.';
       try {
-        const snapshot = JSON.parse(localStorage.getItem(LOCAL_SNAPSHOT_KEY) || 'null');
+        const snapshot = readStoredJson(LOCAL_SNAPSHOT_KEY, null);
         if (snapshot?.savedAt) snapshotText = `Último snapshot local em ${new Date(snapshot.savedAt).toLocaleString('pt-BR')}.`;
       } catch {}
       host.innerHTML = `
@@ -5670,69 +6228,129 @@
       saveData(true);
     }
 
+    function syncAppState(storeLike = getData()) {
+      storage = sanitizeStore(migrateStore(storeLike)) || getDefaultStore();
+      currentPeriodKey = storage.activePeriod;
+      state = storage.periods[currentPeriodKey];
+      normalizeData(state);
+      return state;
+    }
 
-    applyUIStateToControls();
-    initUIBindings();
-    document.getElementById('monthDaysSelector').addEventListener('change', e => resizeMonth(e.target.value));
-    document.getElementById('periodMonthSelect').innerHTML = MONTH_NAMES.map((name, index) => `<option value="${index + 1}">${name}</option>`).join('');
-    document.getElementById('periodMonthSelect').addEventListener('change', changePeriodFromControls);
-    document.getElementById('periodYearInput').addEventListener('change', changePeriodFromControls);
+    function initializeStaticControls() {
+      document.querySelectorAll('button:not([type])').forEach(button => {
+        button.type = 'button';
+      });
+      document.getElementById('monthDaysSelector').addEventListener('change', e => resizeMonth(e.target.value));
+      document.getElementById('periodMonthSelect').innerHTML = MONTH_NAMES.map((name, index) => `<option value="${index + 1}">${name}</option>`).join('');
+      document.getElementById('periodMonthSelect').addEventListener('change', changePeriodFromControls);
+      document.getElementById('periodYearInput').addEventListener('change', changePeriodFromControls);
+      document.getElementById('importFile').addEventListener('change', e => {
+        const file = e.target.files[0];
+        if (file) importData(file);
+        e.target.value = '';
+      });
+    }
 
-    document.getElementById('importFile').addEventListener('change', e => {
-      const file = e.target.files[0];
-      if (file) importData(file);
-      e.target.value = '';
-    });
+    function bindTabKeyboardNavigation() {
+      const tabButtons = [...document.querySelectorAll('.tab-btn')];
+      tabButtons.forEach((button, index) => {
+        button.addEventListener('keydown', e => {
+          const isHorizontalKey = ['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key);
+          if (!isHorizontalKey) return;
+          e.preventDefault();
+          const nextIndex = e.key === 'Home'
+            ? 0
+            : e.key === 'End'
+              ? tabButtons.length - 1
+              : (index + (e.key === 'ArrowRight' ? 1 : -1) + tabButtons.length) % tabButtons.length;
+          const nextButton = tabButtons[nextIndex];
+          nextButton.focus();
+          setActiveTab(nextButton.dataset.tab, true);
+          saveUIState({ activeTab: nextButton.dataset.tab });
+        });
+      });
+    }
 
-    document.querySelectorAll('.modal').forEach(m => {
-      m.addEventListener('click', e => { if (e.target === m) m.classList.remove('show'); });
-    });
+    function bindModalBackdropClose() {
+      document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('click', e => {
+          if (e.target === modal) closeModal(modal.id);
+        });
+      });
+    }
 
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') {
-        document.querySelectorAll('.modal.show').forEach(m => m.classList.remove('show'));
-      }
-      if (e.key === '/' && !['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName || '')) {
-        e.preventDefault();
-        const activeView = document.querySelector('.view.active')?.id;
-        const targetId = activeView === 'pending'
-          ? 'pendingSearch'
-          : activeView === 'students'
-            ? 'studentSearch'
-            : activeView === 'events'
-              ? 'eventSearch'
-              : activeView === 'scale'
-                ? 'scaleSearch'
-                : null;
-        const target = targetId ? document.getElementById(targetId) : null;
-        if (target) target.focus();
-      }
-    });
+    function bindGlobalKeyboardShortcuts() {
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+          document.querySelectorAll('.modal.show').forEach(modal => closeModal(modal.id));
+        }
+        if (e.key === '/' && !['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName || '')) {
+          e.preventDefault();
+          const activeView = document.querySelector('.view.active')?.id;
+          const targetId = activeView === 'pending'
+            ? 'pendingSearch'
+            : activeView === 'students'
+              ? 'studentSearch'
+              : activeView === 'events'
+                ? 'eventSearch'
+                : activeView === 'scale'
+                  ? 'scaleSearch'
+                  : null;
+          const target = targetId ? document.getElementById(targetId) : null;
+          if (target) target.focus();
+        }
+      });
+    }
 
-    window.addEventListener('storage', e => {
-      if (e.key !== STORAGE_KEY || !e.newValue) return;
-      try {
-        const incoming = normalizeStore(JSON.parse(e.newValue));
-        storage = incoming;
-        currentPeriodKey = storage.activePeriod;
-        state = storage.periods[currentPeriodKey];
-        renderAll();
-        syncPeriodControls();
-        showSaveToast('✓ dados sincronizados de outra aba');
-      } catch {}
-    });
+    function bindStorageSync() {
+      window.addEventListener('storage', e => {
+        if (e.key !== STORAGE_KEY || !e.newValue) return;
+        try {
+          syncAppState(JSON.parse(e.newValue));
+          renderAll();
+          syncPeriodControls();
+          showSaveToast('✓ dados sincronizados de outra aba');
+        } catch {}
+      });
+    }
 
-    populateStudentFilters();
-    clearStudentForm();
-    clearPendingForm();
-    clearScaleForm();
-    clearEventForm();
-    renderAll();
-    syncPeriodControls();
-    runSystemDiagnostics(true);
-    const initialUIState = sanitizeUIState(getUIState());
-    applyUIStateToControls(initialUIState);
-    setActiveTab(initialUIState.activeTab || 'dashboard', true);
+    function initializeForms() {
+      populateStudentFilters();
+      clearStudentForm();
+      clearPendingForm();
+      clearScaleForm();
+      clearEventForm();
+    }
+
+    function initializeSavedUIState() {
+      const uiState = sanitizeUIState(getUIState());
+      applyUIStateToControls(uiState);
+      return uiState;
+    }
+
+    function renderInitialViews(uiState) {
+      renderAll();
+      syncPeriodControls();
+      runSystemDiagnostics(true);
+      applyUIStateToControls(uiState);
+      setActiveTab(uiState.activeTab || 'dashboard', true);
+    }
+
+    function initializeApp() {
+      syncAppState();
+      initializeStaticControls();
+      initUIBindings();
+      bindUIEvents();
+      bindTabKeyboardNavigation();
+      bindModalBackdropClose();
+      bindGlobalKeyboardShortcuts();
+      bindStorageSync();
+      const initialUIState = initializeSavedUIState();
+      initializeForms();
+      renderInitialViews(initialUIState);
+    }
+
+    initializeApp();
   </script>
 </body>
 </html>
