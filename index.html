@@ -680,11 +680,20 @@
       line-height: 1.35;
       background: #0d0d0d;
     }
+    .table-input[type="date"] {
+      padding-right: 1.8rem;
+      min-width: 140px;
+    }
+    .table-input[type="time"] {
+      min-width: 110px;
+      width: 110px;
+      padding-right: 1.8rem;
+      box-sizing: border-box;
+    }
     .table-input:hover {
       border-color: rgba(255,255,255,.18);
       background: #111111;
     }
-    .table-input[type="time"] { min-width: 104px; }
     td.right {
       white-space: nowrap;
     }
@@ -1199,7 +1208,7 @@
 
     /* Tabela de alunos — 11 colunas com espaço adequado */
     .student-table {
-      min-width: 1480px;
+      min-width: 1280px;
       width: 100%;
       table-layout: fixed;
     }
@@ -1209,15 +1218,15 @@
       padding: 14px 10px;
     }
     .student-table th:nth-child(1),  .student-table td:nth-child(1)  { width: 12%; }  /* Nome */
-    .student-table th:nth-child(2),  .student-table td:nth-child(2)  { width: 9%; }   /* Matrícula */
-    .student-table th:nth-child(3),  .student-table td:nth-child(3)  { width: 9%; }   /* Última visita */
-    .student-table th:nth-child(4),  .student-table td:nth-child(4)  { width: 6%; }   /* Hora da visita */
-    .student-table th:nth-child(5),  .student-table td:nth-child(5)  { width: 8%; }   /* Início */
-    .student-table th:nth-child(6),  .student-table td:nth-child(6)  { width: 9%; }   /* Aviso NPS */
-    .student-table th:nth-child(7),  .student-table td:nth-child(7)  { width: 9%; }   /* Atendimento */
-    .student-table th:nth-child(8),  .student-table td:nth-child(8)  { width: 9%; }   /* Feedback */
-    .student-table th:nth-child(9),  .student-table td:nth-child(9)  { width: 8%; }   /* Addon */
-    .student-table th:nth-child(10), .student-table td:nth-child(10) { width: 11%; }  /* Observações */
+    .student-table th:nth-child(2),  .student-table td:nth-child(2)  { width: 8%; }   /* Matrícula */
+    .student-table th:nth-child(3),  .student-table td:nth-child(3)  { width: 11%; min-width: 150px; }  /* Última visita */
+    .student-table th:nth-child(4),  .student-table td:nth-child(4)  { width: 8%; min-width: 130px; white-space: nowrap; }   /* Hora da visita */
+    .student-table th:nth-child(5),  .student-table td:nth-child(5)  { width: 11%; min-width: 150px; }  /* Início */
+    .student-table th:nth-child(6),  .student-table td:nth-child(6)  { width: 8%; }   /* Aviso NPS */
+    .student-table th:nth-child(7),  .student-table td:nth-child(7)  { width: 8%; }   /* Atendimento */
+    .student-table th:nth-child(8),  .student-table td:nth-child(8)  { width: 8%; }   /* Feedback */
+    .student-table th:nth-child(9),  .student-table td:nth-child(9)  { width: 7%; }   /* Addon */
+    .student-table th:nth-child(10), .student-table td:nth-child(10) { width: 10%; }  /* Observações */
     .student-table th:nth-child(11), .student-table td:nth-child(11) { width: 10%; }  /* Ações */
     #students .students-toolbar-actions {
       display: grid;
@@ -1310,32 +1319,56 @@
       font-size: 11px;
       line-height: 1.42;
     }
+    #students,
+    #students .section,
+    #students .toolbar,
+    #students .students-summary-bar,
+    #students .table-wrap,
+    #scale,
+    #scale .section,
+    #scale .toolbar,
+    #scale .schedule-note-box,
+    #scale .schedule-topbar,
+    #scale .scale-ops-summary,
+    #scale .scale-board-wrap,
+    #scale .schedule-matrix {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+    }
+    #students .table-wrap,
+    #scale .table-wrap,
+    #scale .schedule-matrix {
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
     #students .student-table {
-      min-width: 1320px;
+      min-width: 1180px;
       width: 100%;
     }
     #students .student-table th:nth-child(1),
-    #students .student-table td:nth-child(1) { width: 14%; }
+    #students .student-table td:nth-child(1) { width: 13%; }
     #students .student-table th:nth-child(2),
-    #students .student-table td:nth-child(2) { width: 8%; }
+    #students .student-table td:nth-child(2) { width: 7%; }
     #students .student-table th:nth-child(3),
-    #students .student-table td:nth-child(3) { width: 8%; }
+    #students .student-table td:nth-child(3) { width: 10%; min-width: 150px; }
     #students .student-table th:nth-child(4),
-    #students .student-table td:nth-child(4) { width: 6%; }
+    #students .student-table td:nth-child(4) { width: 8%; min-width: 130px; white-space: nowrap; }
     #students .student-table th:nth-child(5),
-    #students .student-table td:nth-child(5) { width: 7%; }
+    #students .student-table td:nth-child(5) { width: 10%; min-width: 150px; }
     #students .student-table th:nth-child(6),
     #students .student-table td:nth-child(6) { width: 7%; }
     #students .student-table th:nth-child(7),
-    #students .student-table td:nth-child(7) { width: 9%; }
+    #students .student-table td:nth-child(7) { width: 8%; }
     #students .student-table th:nth-child(8),
-    #students .student-table td:nth-child(8) { width: 8%; }
+    #students .student-table td:nth-child(8) { width: 7%; }
     #students .student-table th:nth-child(9),
-    #students .student-table td:nth-child(9) { width: 7%; }
+    #students .student-table td:nth-child(9) { width: 6%; }
     #students .student-table th:nth-child(10),
-    #students .student-table td:nth-child(10) { width: 15%; }
+    #students .student-table td:nth-child(10) { width: 13%; }
     #students .student-table th:nth-child(11),
-    #students .student-table td:nth-child(11) { width: 12%; }
+    #students .student-table td:nth-child(11) { width: 11%; }
 
     .pending-overview-cards {
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -2174,6 +2207,78 @@
       border-color: rgba(255,255,255,.1);
     }
 
+    /* Líderes dos meses anteriores — seção na coluna direita do NPS */
+    .hist-leaders {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+    .hist-leaders-title {
+      font-size: var(--font-lg);
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .hist-leaders-subtitle {
+      font-size: var(--font-xs);
+      color: var(--muted-2);
+      margin-bottom: 14px;
+      line-height: 1.45;
+    }
+    .hist-leaders-list {
+      display: grid;
+      gap: 10px;
+      max-height: 420px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+    .hist-leaders-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+    }
+    .hist-leaders-period {
+      font-size: var(--font-sm);
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .hist-leaders-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 0;
+      font-size: var(--font-xs);
+      color: var(--muted);
+    }
+    .hist-leaders-row + .hist-leaders-row {
+      border-top: 1px solid rgba(255,255,255,.04);
+      margin-top: 2px;
+      padding-top: 6px;
+    }
+    .hist-leaders-label {
+      color: var(--muted-2);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .hist-leaders-value {
+      font-weight: 700;
+      color: var(--text);
+    }
+    .hist-leaders-value .hl-total {
+      color: var(--primary);
+      font-size: 12px;
+      margin-left: 6px;
+    }
+    .hist-leaders-empty {
+      text-align: center;
+      padding: 24px 12px;
+      color: var(--muted-2);
+      font-size: var(--font-sm);
+    }
+
     .obs-box {
       display: grid;
       gap: 14px;
@@ -2559,7 +2664,7 @@
     }
     .schedule-matrix table {
       width: 100%;
-      min-width: 1060px;
+      min-width: 980px;
       table-layout: fixed;
     }
     #scale .table-wrap td {
@@ -2593,7 +2698,7 @@
       background: rgba(255,255,255,.035);
     }
     .scale-date-cell {
-      min-width: 160px;
+      min-width: 144px;
     }
     .scale-date-main {
       font-size: 18px;
@@ -3692,6 +3797,9 @@
     #dashboard .chart-box {
       padding: 18px 20px 14px;
     }
+    #dashboard .dashboard-section--feedback {
+      min-width: 0;
+    }
     #dashboard .dashboard-section--feedback .chart-box {
       display: flex;
       flex-direction: column;
@@ -3699,6 +3807,8 @@
       flex: 1;
       justify-content: space-between;
       padding: 16px 18px 15px;
+      overflow: hidden;
+      min-width: 0;
     }
     #dashboard .dashboard-section--feedback .chart {
       flex: 1;
@@ -3707,6 +3817,9 @@
       gap: 12px;
       padding: 8px 2px 4px;
       align-items: end;
+      overflow-x: auto;
+      overflow-y: hidden;
+      min-width: 0;
     }
     #dashboard .dashboard-section--feedback .bar-col {
       min-width: 70px;
@@ -4431,6 +4544,24 @@
       #pendingKanban.kanban { grid-template-columns: minmax(260px, 1fr); min-width: 0; }
       .kanban { min-width: 0; }
       .kanban-col { min-height: 460px; }
+      #students .student-table {
+        min-width: 1040px;
+      }
+      #students .student-table th,
+      #students .student-table td {
+        padding: 12px 8px;
+        font-size: 13px;
+      }
+      #students .student-table th:nth-child(3),
+      #students .student-table td:nth-child(3),
+      #students .student-table th:nth-child(5),
+      #students .student-table td:nth-child(5) {
+        min-width: 132px;
+      }
+      #students .student-table th:nth-child(4),
+      #students .student-table td:nth-child(4) {
+        min-width: 110px;
+      }
       .pending-status-strip {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -4455,6 +4586,26 @@
       }
       .schedule-kpis {
         grid-template-columns: repeat(2, minmax(160px, 1fr));
+      }
+      #scale .schedule-matrix table {
+        min-width: 900px;
+      }
+      #scale .schedule-matrix th,
+      #scale .schedule-matrix td {
+        min-width: 92px;
+        padding: 12px 8px;
+        font-size: 13px;
+      }
+      .scale-date-cell {
+        min-width: 128px;
+      }
+      .scale-date-main {
+        font-size: 16px;
+        margin-bottom: 4px;
+      }
+      .scale-date-sub,
+      .scale-mini-note {
+        font-size: 11px;
       }
       .scale-board-row {
         grid-template-columns: 1fr;
@@ -4531,6 +4682,9 @@
         grid-column: auto;
         width: 100%;
       }
+      #students .section {
+        padding: 16px;
+      }
       .students-summary-bar {
         grid-template-columns: 1fr;
         gap: 8px;
@@ -4546,6 +4700,28 @@
       .students-summary-item--feedback,
       .students-summary-item--addons {
         grid-column: auto;
+      }
+      #students .student-table {
+        min-width: 920px;
+      }
+      #students .student-table th,
+      #students .student-table td {
+        padding: 10px 7px;
+        font-size: 12px;
+      }
+      #students .student-table th:nth-child(3),
+      #students .student-table td:nth-child(3),
+      #students .student-table th:nth-child(5),
+      #students .student-table td:nth-child(5) {
+        min-width: 118px;
+      }
+      #students .student-table th:nth-child(4),
+      #students .student-table td:nth-child(4) {
+        min-width: 96px;
+      }
+      #students .student-table td .table-input {
+        min-width: 0;
+        font-size: 12px;
       }
       .pending-status-strip {
         grid-template-columns: 1fr;
@@ -4587,6 +4763,54 @@
       #settings .grid-2 {
         grid-template-columns: 1fr;
       }
+      #scale .section {
+        padding: 16px;
+      }
+      #scale .schedule-note-box,
+      #scale .scale-board-wrap {
+        margin-bottom: 14px;
+      }
+      #scale .scale-board {
+        gap: 10px;
+      }
+      #scale .scale-board-row {
+        border-radius: 18px;
+      }
+      #scale .scale-board-day,
+      #scale .scale-board-prof,
+      #scale .scale-board-recep,
+      #scale .scale-board-side {
+        padding: 12px;
+      }
+      #scale .scale-board-day .date {
+        font-size: 24px;
+      }
+      #scale .scale-board-day .weekday {
+        font-size: 10px;
+        padding: 6px 8px;
+      }
+      #scale .scale-board-shift {
+        padding: 8px 10px;
+      }
+      #scale .schedule-matrix table {
+        min-width: 800px;
+      }
+      #scale .schedule-matrix th,
+      #scale .schedule-matrix td {
+        min-width: 80px;
+        padding: 10px 7px;
+        font-size: 12px;
+      }
+      #scale .scale-date-cell {
+        min-width: 116px;
+      }
+      #scale .scale-date-main {
+        font-size: 15px;
+      }
+      #scale .scale-date-sub,
+      #scale .scale-mini-note {
+        font-size: 10px;
+      }
       .settings-panel-block + .settings-panel-block {
         padding-top: 14px;
       }
@@ -4618,6 +4842,15 @@
       .event-day-name, .event-day-extra { -webkit-line-clamp: 1; line-clamp: 1; }
       .schedule-kpis {
         grid-template-columns: 1fr;
+      }
+      #students .student-table {
+        min-width: 860px;
+      }
+      #scale .schedule-matrix table {
+        min-width: 760px;
+      }
+      #scale .scale-board-day .date {
+        font-size: 22px;
       }
       .toolbar-actions {
         width: 100%;
@@ -4952,6 +5185,7 @@
             </div>
           </div>
           <div class="rank-list" id="npsRankingList"></div>
+          <div id="npsHistLeaders"></div>
         </div>
       </div>
     </section>
@@ -4977,7 +5211,7 @@
           <div class="scale-legend">
             <span class="scale-legend-item"><span class="scale-legend-swatch red"></span>Vermelho = Feriado</span>
             <span class="scale-legend-item"><span class="scale-legend-swatch green"></span>Verde = Sábado</span>
-            <span class="scale-legend-item"><span class="scale-legend-swatch neutral"></span>Neutro = Domingo</span>
+            <span class="scale-legend-item"><span class="scale-legend-swatch neutral"></span>Neutro = Dia normal</span>
           </div>
         </div>
         <div class="schedule-topbar">
@@ -5240,7 +5474,7 @@
               <div class="settings-subsection">
                 <div class="settings-subsection-head">
                   <h3>Uso de armazenamento</h3>
-                  <p>Estimativa local no navegador com base nas chaves do app e namespace de recados.</p>
+                  <p>Estimativa do espelho local do navegador. A persistência principal do app continua em IndexedDB.</p>
                 </div>
                 <div id="settingsStorageUsage"></div>
               </div>
@@ -5454,7 +5688,7 @@
           <select id="scale_tone">
             <option value="green">Verde = Sábado</option>
             <option value="red">Vermelho = Feriado</option>
-            <option value="neutral">Neutro = Domingo</option>
+            <option value="neutral">Neutro = Dia normal</option>
           </select>
         </div>
         <div class="field"><label>Horário recepção</label><input id="scale_receptionTime" placeholder="Ex: 08h - 17h" /></div>
@@ -6101,6 +6335,49 @@
       return [...new Set([...getReceptionists(source), ...getProfessors(source)])];
     }
 
+    function totalAddonVolumeForPerson(person, source = state) {
+      const group = source?.addons?.[person] || {};
+      const knownTypes = [...new Set([...(source?.settings?.addonTypes || []), ...Object.keys(group)])];
+      return knownTypes.reduce((total, type) => {
+        const values = Array.isArray(group[type]) ? group[type] : [];
+        return total + values.reduce((acc, value) => acc + Number(value || 0), 0);
+      }, 0);
+    }
+
+    function getAddonPeople(source = state) {
+      const activeReceptionists = getReceptionists(source);
+      const historicalPeople = Object.keys(source?.addons || {}).filter(person => (
+        person &&
+        (activeReceptionists.includes(person) || totalAddonVolumeForPerson(person, source) > 0)
+      ));
+      return [...new Set([...activeReceptionists, ...historicalPeople])];
+    }
+
+    function getTotalAddonVolume(source = state) {
+      return Object.keys(source?.addons || {}).reduce((total, person) => {
+        return total + totalAddonVolumeForPerson(person, source);
+      }, 0);
+    }
+
+    function hydrateLegacyAddonsFromStudents(data) {
+      if (!data || getTotalAddonVolume(data) > 0) return;
+      data.students.forEach(student => {
+        const person = String(student?.atendimento || '').trim();
+        const type = String(student?.addon || '').trim();
+        const rawDate = String(student?.inicio || student?.ultimaVisita || '').trim();
+        const day = Number(rawDate.split('-')[2] || 0);
+        if (!person || !type || !day) return;
+        data.addons[person] ||= {};
+        const arr = Array.from(
+          { length: data.settings.monthDays },
+          (_, index) => Number((data.addons[person][type] || [])[index] || 0)
+        );
+        const idx = Math.min(data.settings.monthDays, Math.max(1, day)) - 1;
+        arr[idx] = Number(arr[idx] || 0) + 1;
+        data.addons[person][type] = arr;
+      });
+    }
+
     function makeRng(seed) {
       let h = 1779033703 ^ String(seed).length;
       for (let i = 0; i < String(seed).length; i++) {
@@ -6304,6 +6581,7 @@
         },
         students: [],
         pending: [],
+        recados: [],
         nps: {
           score: 0,
           monthlyGoal: clamp(Number(source?.nps?.monthlyGoal ?? 75), 0, 100),
@@ -6331,6 +6609,7 @@
     function resetPeriodData(key, template = state) {
       storage.periods[key] = buildCleanPeriodFromTemplate(template || state, key);
       normalizeData(storage.periods[key]);
+      clearLegacyRecadosStorageKey(key);
       return storage.periods[key];
     }
 
@@ -7063,6 +7342,7 @@
       data.settings.monthDays ||= 31;
       data.students ||= [];
       data.pending ||= [];
+      data.recados = normalizeRecadosCollection(data.recados);
       data.scale = Array.isArray(data.scale) ? data.scale : Array.isArray(data.escala) ? data.escala : [];
       data.events = Array.isArray(data.events) ? data.events : Array.isArray(data.eventos) ? data.eventos : [];
       data.addons ||= {};
@@ -7136,16 +7416,15 @@
         count: Math.max(0, Number(item.count || item.citacoes || 0))
       })).filter(item => item.name);
 
-      getReceptionists(data).forEach(person => {
+      hydrateLegacyAddonsFromStudents(data);
+
+      getAddonPeople(data).forEach(person => {
         data.addons[person] ||= {};
-        (data.settings.addonTypes || APP_DEFAULTS.addonTypes).forEach(type => {
+        const knownTypes = [...new Set([...(data.settings.addonTypes || APP_DEFAULTS.addonTypes), ...Object.keys(data.addons[person] || {})])];
+        knownTypes.forEach(type => {
           const arr = data.addons[person][type] || [];
           data.addons[person][type] = Array.from({ length: data.settings.monthDays }, (_, i) => Number(arr[i] || 0));
         });
-      });
-
-      Object.keys(data.addons).forEach(person => {
-        if (!getReceptionists(data).includes(person)) delete data.addons[person];
       });
     }
 
@@ -7214,9 +7493,197 @@
       return `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}`;
     }
 
+    const LOCKED_CURRENT_PERIOD_ACTIONS = new Set([
+      'close-current-month',
+      'reset-selected-month',
+      'open-student-modal',
+      'open-pending-modal',
+      'add-person',
+      'register-mention',
+      'save-nps-observations',
+      'open-scale-modal',
+      'duplicate-previous-month-scale',
+      'open-event-modal',
+      'save-settings',
+      'restore-local-snapshot',
+      'reset-demo-data',
+      'save-student',
+      'save-pending',
+      'save-scale-day',
+      'save-event-item',
+      'edit-student',
+      'remove-student',
+      'edit-pending',
+      'remove-pending',
+      'adjust-mention',
+      'remove-mention',
+      'edit-scale-day',
+      'remove-scale-day',
+      'edit-event-item',
+      'duplicate-event-item',
+      'remove-event-item'
+    ]);
+    const LOCKED_CURRENT_PERIOD_CHANGE_ACTIONS = new Set(['update-student-inline', 'update-addon', 'set-mention-count']);
+    const LOCKED_CURRENT_PERIOD_INPUT_ACTIONS = new Set(['update-nps-score', 'update-nps-goal']);
+    const LOCKED_CURRENT_PERIOD_BLUR_ACTIONS = new Set(['rename-person', 'rename-mention']);
+    const LOCKED_CURRENT_PERIOD_CONTROL_IDS = [
+      'monthDaysSelector',
+      'importFile',
+      'receptionistEditor',
+      'professorEditor',
+      'addonTypeEditor',
+      'recadoFrom',
+      'recadoTo',
+      'recadoMessage',
+      'student_nome',
+      'student_matricula',
+      'student_ultimaVisita',
+      'student_horaVisita',
+      'student_inicio',
+      'student_avisoNps',
+      'student_atendimento',
+      'student_feedback',
+      'student_addon',
+      'student_observacoes',
+      'pending_nome',
+      'pending_matricula',
+      'pending_hostess',
+      'pending_data',
+      'pending_status',
+      'pending_desc',
+      'pending_resposta',
+      'npsMentionName',
+      'npsMentionCount',
+      'npsObservations',
+      'scale_date',
+      'scale_tone',
+      'scale_receptionTime',
+      'scale_receptionist',
+      'scale_receptionSwap',
+      'scale_note',
+      'event_date',
+      'event_time',
+      'event_type',
+      'event_status',
+      'event_title',
+      'event_place',
+      'event_owner',
+      'event_description'
+    ];
+
+    function isPeriodLocked(key = currentPeriodKey) {
+      return Boolean(storage?.archives?.[String(key || '')]);
+    }
+
+    function isCurrentPeriodLocked() {
+      return isPeriodLocked(currentPeriodKey);
+    }
+
+    function getCurrentPeriodLockMessage(key = currentPeriodKey) {
+      return `${getPeriodLabel(key)} está fechado. Ação bloqueada.`;
+    }
+
+    function canMutateCurrentPeriod(options = {}) {
+      if (!isCurrentPeriodLocked()) return true;
+      const rerenderTargets = normalizarAlvosRender(options?.rerender || []);
+      if (rerenderTargets.length) requestRender(rerenderTargets);
+      if (!options?.silent) {
+        showToast(options?.message || getCurrentPeriodLockMessage(), 'warning');
+      }
+      return false;
+    }
+
+    function assertWritableCurrentPeriod(options = {}) {
+      return canMutateCurrentPeriod(options);
+    }
+
+    function syncCurrentPeriodLockUI() {
+      const locked = isCurrentPeriodLocked();
+      const hint = locked ? `${getPeriodLabel()} fechado. Somente leitura.` : '';
+
+      const syncDisableState = control => {
+        if (!control) return;
+        if (control.dataset.historicalReadonly === 'true') {
+          if ('disabled' in control) control.disabled = true;
+          control.setAttribute('aria-disabled', 'true');
+          return;
+        }
+        if ('disabled' in control) control.disabled = locked;
+        control.setAttribute('aria-disabled', String(locked));
+        if (locked) {
+          if (!('lockHint' in control.dataset)) {
+            control.dataset.lockHint = control.getAttribute('title') || '';
+          }
+          if (hint) control.setAttribute('title', hint);
+        } else if ('lockHint' in control.dataset) {
+          const previousTitle = control.dataset.lockHint;
+          if (previousTitle) control.setAttribute('title', previousTitle);
+          else control.removeAttribute('title');
+          delete control.dataset.lockHint;
+        }
+      };
+
+      document.querySelectorAll('[data-action]').forEach(control => {
+        if (!LOCKED_CURRENT_PERIOD_ACTIONS.has(control.dataset.action)) return;
+        syncDisableState(control);
+      });
+
+      document.querySelectorAll('[data-change-action]').forEach(control => {
+        if (!LOCKED_CURRENT_PERIOD_CHANGE_ACTIONS.has(control.dataset.changeAction)) return;
+        syncDisableState(control);
+      });
+
+      document.querySelectorAll('[data-input-action]').forEach(control => {
+        if (!LOCKED_CURRENT_PERIOD_INPUT_ACTIONS.has(control.dataset.inputAction)) return;
+        syncDisableState(control);
+      });
+
+      document.querySelectorAll('[data-blur-action]').forEach(control => {
+        if (!LOCKED_CURRENT_PERIOD_BLUR_ACTIONS.has(control.dataset.blurAction)) return;
+        if (control.dataset.blurAction === 'rename-person') {
+          control.contentEditable = locked ? 'false' : 'true';
+          control.setAttribute('aria-disabled', String(locked));
+          if (locked) {
+            control.setAttribute('tabindex', '-1');
+            if (!('lockHint' in control.dataset)) {
+              control.dataset.lockHint = control.getAttribute('title') || '';
+            }
+            if (hint) control.setAttribute('title', hint);
+          } else {
+            control.removeAttribute('tabindex');
+            if ('lockHint' in control.dataset) {
+              const previousTitle = control.dataset.lockHint;
+              if (previousTitle) control.setAttribute('title', previousTitle);
+              else control.removeAttribute('title');
+              delete control.dataset.lockHint;
+            }
+          }
+          return;
+        }
+        syncDisableState(control);
+      });
+
+      LOCKED_CURRENT_PERIOD_CONTROL_IDS.forEach(id => {
+        syncDisableState(document.getElementById(id));
+      });
+
+      const recadoSubmit = document.querySelector('#recadosForm button[type="submit"]');
+      syncDisableState(recadoSubmit);
+
+      document.querySelectorAll('[data-recado-action]').forEach(control => {
+        syncDisableState(control);
+      });
+
+      document.querySelectorAll('#pendingKanban [data-pending-id]').forEach(card => {
+        card.draggable = !locked;
+        card.setAttribute('aria-disabled', String(locked));
+      });
+    }
+
     function periodHasMeaningfulData(period) {
       if (!period) return false;
       return Boolean(
+        period.recados?.length ||
         period.students?.length ||
         period.pending?.length ||
         period.scale?.length ||
@@ -7260,6 +7727,7 @@
       badge.classList.toggle('active', !archive);
       const closeBtn = document.getElementById('closeMonthBtn');
       if (closeBtn) closeBtn.disabled = !!archive;
+      syncCurrentPeriodLockUI();
     }
 
     async function switchPeriod(key, options = {}) {
@@ -7281,6 +7749,7 @@
     }
 
     function closeCurrentMonth() {
+      if (!assertWritableCurrentPeriod({ message: `${getPeriodLabel()} já está fechado.` })) return;
       const currentLabel = getPeriodLabel(currentPeriodKey);
       showConfirm(`Fechar ${currentLabel} e abrir o próximo mês? O arquivo de fechamento será baixado automaticamente.`, async () => {
         const committedStore = await getCommittedStoreSnapshot({
@@ -7329,6 +7798,7 @@
     }
 
     async function resetSelectedMonth() {
+      if (!assertWritableCurrentPeriod({ message: `${getPeriodLabel()} está fechado e não pode ser resetado.` })) return;
       const label = getPeriodLabel(currentPeriodKey);
       await downloadData();
       showConfirm(`Deseja resetar o mês ${label}? Um backup completo foi gerado antes desta operação. Todos os atendimentos, pendências, escala, eventos, NPS e addons serão apagados. As configurações de equipe e tipos de addon serão preservadas.`, async () => {
@@ -7342,22 +7812,41 @@
     }
 
     function duplicatePreviousMonthScale() {
+      if (!assertWritableCurrentPeriod()) return;
       const previousKey = getPreviousPeriodKey(currentPeriodKey);
       const previous = storage.periods[previousKey];
       if (!previous || !Array.isArray(previous.scale) || !previous.scale.length) {
         return showToast(`Não há escala cadastrada em ${getPeriodLabel(previousKey)} para duplicar.`, 'warning');
       }
       const doDuplicate = async () => {
-        state.scale = structuredClone(previous.scale).map(item => ({
-          ...item,
-          id: crypto.randomUUID(),
-          date: item.date ? `${currentPeriodKey}-${String(item.date).slice(-2)}` : item.date,
-          professorShifts: (item.professorShifts || []).map(shift => ({ ...shift, id: crypto.randomUUID() }))
-        })).filter(item => isDateInActivePeriod(item.date));
+        const [targetYear, targetMonth] = String(currentPeriodKey).split('-');
+        const targetMonthDays = new Date(Number(targetYear), Number(targetMonth), 0).getDate();
+        let skippedDays = 0;
+
+        state.scale = structuredClone(previous.scale).reduce((list, item) => {
+          const rawDay = String(item?.date || '').slice(-2);
+          const day = Number(rawDay);
+          if (!Number.isInteger(day) || day < 1 || day > targetMonthDays) {
+            skippedDays += 1;
+            return list;
+          }
+          list.push({
+            ...item,
+            id: crypto.randomUUID(),
+            date: `${currentPeriodKey}-${String(day).padStart(2, '0')}`,
+            professorShifts: (item.professorShifts || []).map(shift => ({ ...shift, id: crypto.randomUUID() }))
+          });
+          return list;
+        }, []);
+
         state.scale.sort((a, b) => String(a.date || '').localeCompare(String(b.date || '')));
         const saved = await saveData();
         requestRender(['scale', 'dashboard']);
-        if (saved) showToast(`✓ Escala de ${getPeriodLabel(previousKey)} duplicada para ${getPeriodLabel()}.`, 'success');
+        if (!saved) return;
+        const skippedMessage = skippedDays
+          ? ` ${skippedDays} dia(s) excedente(s) foram ignorados por não existirem em ${getPeriodLabel()}.`
+          : '';
+        showToast(`✓ Escala de ${getPeriodLabel(previousKey)} duplicada para ${getPeriodLabel()}.${skippedMessage}`, 'success');
       };
       if (state.scale.length) {
         showConfirm(`A escala atual de ${getPeriodLabel()} será substituída pela escala de ${getPeriodLabel(previousKey)}. Deseja continuar?`, doDuplicate);
@@ -7991,6 +8480,8 @@
         estadoRenderizacao.renderizando = false;
       }
 
+      syncCurrentPeriodLockUI();
+
       if (estadoRenderizacao.sujas.size) {
         requestRender([...estadoRenderizacao.sujas]);
       }
@@ -8192,6 +8683,11 @@
 
     function getDefaultPeriodDate() {
       return `${getPeriodPrefix()}-01`;
+    }
+
+    function getActivePeriodFallbackDate() {
+      const today = todayISO();
+      return isDateInActivePeriod(today) ? today : getDefaultPeriodDate();
     }
 
     function isDateInActivePeriod(value) {
@@ -8409,18 +8905,19 @@
     }
 
     function selecionarTotaisAddons() {
-      const recepcionistas = getReceptionists(state);
-      const assinatura = criarAssinaturaSelector(recepcionistas, state.settings.addonTypes, state.addons);
+      const pessoasAddon = getAddonPeople(state);
+      const assinatura = criarAssinaturaSelector(pessoasAddon, state.settings.addonTypes, state.addons);
       return lerSelectorMemorizado('totais_addons', assinatura, () => {
         const porPessoa = {};
         const porPessoaTipo = {};
         let totalGeral = 0;
 
-        recepcionistas.forEach(nome => {
+        pessoasAddon.forEach(nome => {
           porPessoaTipo[nome] = {};
           const grupo = state.addons[nome] || {};
+          const knownTypes = [...new Set([...state.settings.addonTypes, ...Object.keys(grupo)])];
           let totalPessoa = 0;
-          state.settings.addonTypes.forEach(tipo => {
+          knownTypes.forEach(tipo => {
             const totalTipo = (grupo[tipo] || []).reduce((acc, valor) => acc + Number(valor || 0), 0);
             porPessoaTipo[nome][tipo] = totalTipo;
             totalPessoa += totalTipo;
@@ -8435,16 +8932,17 @@
 
     function selecionarResumoRecepcionistas() {
       const recepcionistas = getReceptionists(state);
-      const assinatura = criarAssinaturaSelector(recepcionistas, state.students);
+      const assinatura = criarAssinaturaSelector(recepcionistas, state.students, state.addons, state.settings.addonTypes);
       return lerSelectorMemorizado('resumo_recepcionistas', assinatura, () => {
         const alunos = state.students;
+        const totaisAddons = selecionarTotaisAddons();
         const taxaFeedbackGlobal = alunos.length ? alunos.filter(aluno => aluno.feedback !== 'Pendente').length / alunos.length : 0;
         return recepcionistas.map(nome => {
           const itens = alunos.filter(aluno => aluno.atendimento === nome);
           const total = itens.length;
           const comFeedback = itemsComFeedback(itens);
           const nps = itens.filter(aluno => aluno.avisoNps === 'Sim').length;
-          const addon = itens.filter(aluno => aluno.addon).length;
+          const addon = totaisAddons.porPessoa[nome] || 0;
           const positivos = itens.filter(aluno => aluno.feedback === 'Respondeu').length;
           const taxaFeedback = total ? comFeedback / total : 0;
           const taxaAddon = total ? addon / total : 0;
@@ -8455,6 +8953,7 @@
             comFeedback,
             nps,
             addon,
+            addonVolume: addon,
             positivos,
             taxaFeedback,
             taxaAddon,
@@ -8467,6 +8966,65 @@
 
     function itemsComFeedback(itens) {
       return itens.filter(item => item.feedback !== 'Pendente').length;
+    }
+
+    function selecionarLideresHistoricos(limite = 6) {
+      const periods = storage?.periods || {};
+      const keys = Object.keys(periods).filter(k => k && k !== currentPeriodKey);
+      const assinatura = criarAssinaturaSelector('hist_leaders', keys, currentPeriodKey);
+      return lerSelectorMemorizado('lideres_historicos', assinatura, () => {
+        return keys
+          .sort((a, b) => b.localeCompare(a))
+          .map(key => {
+            const period = periods[key];
+            if (!period) return null;
+
+            // Líder de addons: somar todos os tipos por pessoa
+            let addonLeader = null;
+            try {
+              const addons = period.addons || {};
+              const tipos = period.settings?.addonTypes || [];
+              let melhor = null;
+              Object.keys(addons).forEach(nome => {
+                const grupo = addons[nome] || {};
+                let total = 0;
+                (tipos.length ? tipos : Object.keys(grupo)).forEach(tipo => {
+                  total += (grupo[tipo] || []).reduce((acc, v) => acc + Number(v || 0), 0);
+                });
+                if (total > 0 && (!melhor || total > melhor.total || (total === melhor.total && nome.localeCompare(melhor.name, 'pt-BR') < 0))) {
+                  melhor = { name: nome, total };
+                }
+              });
+              addonLeader = melhor;
+            } catch (_) { /* período legado sem addons */ }
+
+            // Líder de NPS: somar count das mentions
+            let npsLeader = null;
+            try {
+              const mentions = Array.isArray(period?.nps?.mentions) ? period.nps.mentions : [];
+              let melhor = null;
+              mentions.forEach(m => {
+                const count = Number(m?.count || 0);
+                const nome = String(m?.name || '');
+                if (count > 0 && (!melhor || count > melhor.total || (count === melhor.total && nome.localeCompare(melhor.name, 'pt-BR') < 0))) {
+                  melhor = { name: nome, total: count };
+                }
+              });
+              npsLeader = melhor;
+            } catch (_) { /* período legado sem nps */ }
+
+            if (!addonLeader && !npsLeader) return null;
+
+            return {
+              key,
+              label: getPeriodLabel(key),
+              addonLeader,
+              npsLeader
+            };
+          })
+          .filter(Boolean)
+          .slice(0, limite);
+      });
     }
 
     function selecionarResumoPendencias() {
@@ -8594,6 +9152,12 @@
       });
     }
 
+    function getNpsGoalProgress(score, goal) {
+      const safeScore = clamp(Number(score || 0), 0, 100);
+      const safeGoal = clamp(Number(goal || 0), 0, 100);
+      return safeGoal ? Math.min(100, (safeScore / safeGoal) * 100) : 0;
+    }
+
     function selecionarIndicadoresDashboard() {
       const assinatura = criarAssinaturaSelector(
         state.students,
@@ -8620,8 +9184,8 @@
         const proximoEvento = getUpcomingEvent(state.events);
         const comFeedback = alunos.filter(aluno => aluno.feedback !== 'Pendente').length;
         const positivos = alunos.filter(aluno => aluno.feedback === 'Respondeu').length;
-        const percentualMetaMensal = metaMensal ? Math.min(100, (scoreAtual / metaMensal) * 100) : 0;
-        const percentualMetaSemestral = metaSemestral ? Math.min(100, (scoreAtual / metaSemestral) * 100) : 0;
+        const percentualMetaMensal = getNpsGoalProgress(scoreAtual, metaMensal);
+        const percentualMetaSemestral = getNpsGoalProgress(scoreAtual, metaSemestral);
 
         return {
           totalAlunos: alunos.length,
@@ -8796,7 +9360,7 @@
             <div class="summary-main"><div class="name" title="${esc(row.nome)}">${esc(row.nome)}</div><div class="muted">${row.total} atendimentos registrados</div></div>
             <div class="metric"><strong>${row.total}</strong><span>Total</span></div>
             <div class="metric"><strong>${formatPct(row.taxaFeedback)}</strong><span>Feedback</span></div>
-            <div class="metric"><strong>${formatPct(row.taxaAddon)}</strong><span>Addons</span></div>
+            <div class="metric"><strong>${row.addonVolume ?? row.addon ?? 0}</strong><span>Addons</span></div>
             <div class="metric"><strong>${formatPct(row.taxaPositiva)}</strong><span>Positivo</span></div>
             <div class="metric"><strong class="${row.diferencaTaxa < 0 ? 'danger-text' : 'gold-text'}">${row.diferencaTaxa >= 0 ? '+' : ''}${Math.round(row.diferencaTaxa * 100)} pts</strong><span>Vs média</span></div>
           </div>
@@ -8822,17 +9386,18 @@
       feedbackChart.style.minWidth = `${Math.max(summary.length * 88, 560)}px`;
 
       const addonsOverview = document.getElementById('addonsOverview');
-      const recepcionistas = getReceptionists(state);
-      if (!recepcionistas.length) {
+      const addonPeople = getAddonPeople(state);
+      const activeReceptionists = new Set(getReceptionists(state));
+      if (!addonPeople.length) {
         aplicarHtmlSeMudou(addonsOverview, '<div class="empty">Sem atendentes cadastrados.</div>');
       } else {
-        aplicarPatchCards(addonsOverview, recepcionistas, person => person, person => {
+        aplicarPatchCards(addonsOverview, addonPeople, person => person, person => {
           const total = indicadores.totaisAddons.porPessoa[person] || 0;
-          const perType = state.settings.addonTypes.map(type => {
-            const count = indicadores.totaisAddons.porPessoaTipo[person]?.[type] || 0;
-            return `${esc(type)}: ${count}`;
-          }).join(' · ');
-          return `<div class="summary-item summary-item--addon-overview"><div class="addon-card-details"><div class="addon-card-name">${esc(person)}</div><div class="addon-card-categories">${perType}</div></div><div class="addon-card-total"><strong>${total}</strong><span>Total no período</span></div></div>`;
+          const perType = Object.entries(indicadores.totaisAddons.porPessoaTipo[person] || {})
+            .map(([type, count]) => `${esc(type)}: ${count}`)
+            .join(' · ') || 'Sem lançamentos registrados.';
+          const subtitle = activeReceptionists.has(person) ? perType : `Histórico preservado • ${perType}`;
+          return `<div class="summary-item summary-item--addon-overview"><div class="addon-card-details"><div class="addon-card-name">${esc(person)}</div><div class="addon-card-categories">${subtitle}</div></div><div class="addon-card-total"><strong>${total}</strong><span>Total no período</span></div></div>`;
         });
       }
 
@@ -8891,25 +9456,163 @@
       };
     }
 
-    function loadRecados(periodKey = currentPeriodKey) {
+    function normalizeRecadosCollection(recados) {
+      return (Array.isArray(recados) ? recados : [])
+        .map(sanitizeRecado)
+        .filter(Boolean)
+        .sort((a, b) => String(b.createdAt || '').localeCompare(String(a.createdAt || '')));
+    }
+
+    function mergeRecadosCollections(primary, fallback) {
+      const byId = new Map();
+      const bySignature = new Map();
+
+      const register = item => {
+        const signature = `${item.from}::${item.to}::${item.text}::${item.createdAt}`;
+        const existing = byId.get(item.id) || bySignature.get(signature);
+        if (!existing) {
+          byId.set(item.id, item);
+          bySignature.set(signature, item);
+          return;
+        }
+        const merged = {
+          ...existing,
+          ...item,
+          id: existing.id || item.id || createRecadoId(),
+          read: Boolean(existing.read || item.read)
+        };
+        byId.set(merged.id, merged);
+        bySignature.set(signature, merged);
+      };
+
+      normalizeRecadosCollection(primary).forEach(register);
+      normalizeRecadosCollection(fallback).forEach(register);
+      return [...new Set(byId.values())]
+        .sort((a, b) => String(b.createdAt || '').localeCompare(String(a.createdAt || '')));
+    }
+
+    function areRecadosCollectionsEqual(left, right) {
+      return JSON.stringify(normalizeRecadosCollection(left)) === JSON.stringify(normalizeRecadosCollection(right));
+    }
+
+    function readLegacyRecados(periodKey = currentPeriodKey) {
       try {
         const raw = localStorage.getItem(getRecadosStorageKey(periodKey));
         const parsed = JSON.parse(raw || '[]');
-        if (!Array.isArray(parsed)) return [];
-        return parsed
-          .map(sanitizeRecado)
-          .filter(Boolean)
-          .sort((a, b) => String(b.createdAt || '').localeCompare(String(a.createdAt || '')));
+        return normalizeRecadosCollection(parsed);
       } catch (error) {
-        console.error('Falha ao carregar recados:', error);
+        console.error('Falha ao carregar recados legados:', error);
         return [];
       }
     }
 
-    function saveRecados(recados, periodKey = currentPeriodKey) {
+    function clearLegacyRecadosStorageKey(periodKey = currentPeriodKey) {
       try {
-        const sanitized = (Array.isArray(recados) ? recados : []).map(sanitizeRecado).filter(Boolean);
-        localStorage.setItem(getRecadosStorageKey(periodKey), JSON.stringify(sanitized));
+        localStorage.removeItem(getRecadosStorageKey(periodKey));
+        return true;
+      } catch (error) {
+        console.error('Falha ao limpar recados legados:', error);
+        return false;
+      }
+    }
+
+    function getLegacyRecadoPeriodKeys() {
+      try {
+        const keys = [];
+        for (let index = 0; index < localStorage.length; index++) {
+          const rawKey = localStorage.key(index);
+          if (!rawKey || !rawKey.startsWith(RECADOS_STORAGE_PREFIX)) continue;
+          const periodKey = String(rawKey.slice(RECADOS_STORAGE_PREFIX.length) || '').trim();
+          if (isValidPeriodKey(periodKey)) keys.push(periodKey);
+        }
+        return [...new Set(keys)].sort();
+      } catch (error) {
+        console.error('Falha ao listar recados legados:', error);
+        return [];
+      }
+    }
+
+    function ensureRecadosPeriod(periodKey = currentPeriodKey, storeRef = storage) {
+      const targetStore = storeRef && typeof storeRef === 'object' ? storeRef : storage;
+      if (!targetStore?.periods) return null;
+      const key = String(periodKey || currentPeriodKey);
+      if (!targetStore.periods[key]) {
+        const template = targetStore.periods?.[targetStore.activePeriod] || Object.values(targetStore.periods || {})[0] || demoData;
+        targetStore.periods[key] = buildEmptyPeriodFromTemplate(template, key);
+      }
+      normalizeData(targetStore.periods[key]);
+      return targetStore.periods[key];
+    }
+
+    function getStoreRecados(periodKey = currentPeriodKey, storeRef = storage) {
+      const targetStore = storeRef && typeof storeRef === 'object' ? storeRef : storage;
+      const period = targetStore?.periods?.[String(periodKey || currentPeriodKey)];
+      if (!period || typeof period !== 'object') return [];
+      normalizeData(period);
+      return normalizeRecadosCollection(period.recados);
+    }
+
+    async function migrateLegacyRecadosToStore(storeRef = storage, options = {}) {
+      const targetStore = storeRef && typeof storeRef === 'object' ? storeRef : storage;
+      if (!targetStore?.periods) return false;
+
+      const legacyPeriodKeys = getLegacyRecadoPeriodKeys();
+      if (!legacyPeriodKeys.length) return false;
+
+      let changed = false;
+      const syncedKeys = [];
+
+      legacyPeriodKeys.forEach(key => {
+        const legacyRecados = readLegacyRecados(key);
+        if (!legacyRecados.length) return;
+
+        const period = ensureRecadosPeriod(key, targetStore);
+        if (!period) return;
+
+        const merged = mergeRecadosCollections(period.recados, legacyRecados);
+        syncedKeys.push(key);
+        if (areRecadosCollectionsEqual(period.recados, merged)) return;
+
+        period.recados = merged;
+        changed = true;
+      });
+
+      let saved = true;
+      if (changed && options.persist === true) {
+        saved = await saveStore(targetStore, {
+          silent: true,
+          broadcast: false,
+          eventType: String(options?.eventType || 'recados-migration')
+        });
+      }
+
+      if (saved && options.cleanup !== false) {
+        syncedKeys.forEach(clearLegacyRecadosStorageKey);
+      }
+
+      return changed;
+    }
+
+    function loadRecados(periodKey = currentPeriodKey) {
+      const key = String(periodKey || currentPeriodKey);
+      return mergeRecadosCollections(getStoreRecados(key), readLegacyRecados(key));
+    }
+
+    async function saveRecados(recados, periodKey = currentPeriodKey) {
+      try {
+        const key = String(periodKey || currentPeriodKey);
+        const period = ensureRecadosPeriod(key);
+        if (!period) throw new Error('Período indisponível para salvar recados.');
+
+        period.recados = normalizeRecadosCollection(recados);
+        if (key === currentPeriodKey) state = period;
+
+        const saved = key === currentPeriodKey
+          ? await saveData({ silent: true, eventType: 'recados' })
+          : await saveStore(storage, { silent: true, eventType: 'recados' });
+
+        if (!saved) return false;
+        clearLegacyRecadosStorageKey(key);
         return true;
       } catch (error) {
         console.error('Falha ao salvar recados:', error);
@@ -9039,7 +9742,8 @@
       `);
     }
 
-    function publishRecado() {
+    async function publishRecado() {
+      if (!assertWritableCurrentPeriod()) return;
       const from = String(document.getElementById('recadoFrom')?.value || '').trim();
       const to = String(document.getElementById('recadoTo')?.value || 'Todos').trim() || 'Todos';
       const text = String(document.getElementById('recadoMessage')?.value || '').trim();
@@ -9063,7 +9767,7 @@
         read: false
       });
 
-      if (!saveRecados(recados)) return;
+      if (!await saveRecados(recados)) return;
 
       document.getElementById('recadosForm')?.reset();
       syncRecadosSelects();
@@ -9072,21 +9776,23 @@
       showToast('✓ recado publicado para o próximo turno.', 'success');
     }
 
-    function markRecadoAsRead(id) {
+    async function markRecadoAsRead(id) {
+      if (!assertWritableCurrentPeriod({ rerender: ['dashboard'] })) return;
       const recados = loadRecados();
       const next = recados.map(item => item.id === id ? { ...item, read: true } : item);
-      if (!saveRecados(next)) return;
+      if (!await saveRecados(next)) return;
       renderRecadosPanel();
     }
 
     function removeRecado(id) {
+      if (!assertWritableCurrentPeriod({ rerender: ['dashboard'] })) return;
       const recados = loadRecados();
       const target = recados.find(item => item.id === id);
       if (!target) return;
 
-      showConfirm(`Excluir o recado de ${target.from} para ${target.to}?`, () => {
+      showConfirm(`Excluir o recado de ${target.from} para ${target.to}?`, async () => {
         const next = loadRecados().filter(item => item.id !== id);
-        if (!saveRecados(next)) return;
+        if (!await saveRecados(next)) return;
         renderRecadosPanel();
         showToast('✓ recado excluído.', 'success');
       });
@@ -9212,6 +9918,7 @@
     }
 
     function updateStudentInline(id, field, value) {
+      if (!assertWritableCurrentPeriod({ rerender: ['hero', 'dashboard', 'students'] })) return;
       const target = state.students.find(s => s.id === id);
       if (!target) return;
       target[field] = value;
@@ -9230,7 +9937,7 @@
 
     function getStudentAddonLink(student) {
       if (!student || !student.addon || !student.atendimento) return null;
-      const rawDate = student.inicio || student.ultimaVisita || todayISO();
+      const rawDate = student.inicio || student.ultimaVisita || getActivePeriodFallbackDate();
       const day = Number(String(rawDate).split('-')[2] || 0);
       if (!day) return null;
       const idx = Math.min(state.settings.monthDays, Math.max(1, day)) - 1;
@@ -9266,6 +9973,7 @@
     }
 
     async function saveStudent() {
+      if (!assertWritableCurrentPeriod()) return;
       const formData = getStudentFormData();
       limparErrosValidacao(['student_nome', 'student_matricula']);
       const idx = state.students.findIndex(s => s.id === formData.id);
@@ -9306,6 +10014,7 @@
     }
 
     function removeStudent(id) {
+      if (!assertWritableCurrentPeriod()) return;
       showConfirm('Deseja excluir este atendimento?', () => {
         const existing = state.students.find(s => s.id === id);
         if (existing) applyStudentAddonLink(existing, -1);
@@ -9317,15 +10026,22 @@
 
     function renderAddons() {
       const days = state.settings.monthDays;
-      const receptionists = getReceptionists(state);
+      const activeReceptionists = getReceptionists(state);
+      const activeReceptionistSet = new Set(activeReceptionists);
+      const addonPeople = getAddonPeople(state);
       document.getElementById('monthDaysSelector').value = String(days);
-      document.getElementById('addonsGrid').innerHTML = receptionists.map(person => `
+      document.getElementById('addonsGrid').innerHTML = addonPeople.map(person => {
+        const isHistorical = !activeReceptionistSet.has(person);
+        const personTypes = [...new Set([...state.settings.addonTypes, ...Object.keys(state.addons[person] || {})])];
+        const personTitle = isHistorical ? 'Atendente removido do cadastro ativo. Histórico preservado em modo somente leitura.' : '';
+        return `
         <div class="person-block">
           <div class="person-head">
-            <h3 contenteditable="true" data-blur-action="rename-person" data-person="${esc(person)}">${esc(person)}</h3>
+            <h3 ${isHistorical ? `title="${esc(personTitle)}"` : 'contenteditable="true" data-blur-action="rename-person"'} data-person="${esc(person)}">${esc(person)}</h3>
+            ${isHistorical ? '<span class="pill">Histórico</span>' : ''}
             <span class="pill info">Total do mês: ${totalAddonByPerson(person)}</span>
           </div>
-          ${state.settings.addonTypes.map(type => {
+          ${personTypes.map(type => {
             const arr = state.addons[person]?.[type] || Array.from({length:days},()=>0);
             const total = arr.reduce((a,b) => a + Number(b || 0), 0);
             return `
@@ -9338,7 +10054,7 @@
                   ${Array.from({length:days}, (_,i) => `
                     <div class="day-cell">
                       <div class="day">Dia ${i+1}</div>
-                      <input type="number" min="0" value="${arr[i] || 0}" data-change-action="update-addon" data-person="${esc(person)}" data-addon-type="${esc(type)}" data-index="${i}" />
+                      <input type="number" min="0" value="${arr[i] || 0}" data-change-action="update-addon" data-person="${esc(person)}" data-addon-type="${esc(type)}" data-index="${i}" ${isHistorical ? 'disabled data-historical-readonly="true" title="Histórico preservado; novos lançamentos para este nome estão bloqueados."' : ''} />
                     </div>
                   `).join('')}
                 </div>
@@ -9346,17 +10062,16 @@
             `;
           }).join('')}
         </div>
-      `).join('') || '<div class="empty">Cadastre atendentes em Configurações.</div>';
+      `;
+      }).join('') || '<div class="empty">Cadastre atendentes em Configurações.</div>';
 
       const rankingHost = document.getElementById('addonsTopSellers');
       if (!rankingHost) return;
 
-      const ranking = receptionists
+      const ranking = addonPeople
         .map(name => ({
           name,
-          total: state.students.reduce((sum, student) => (
-            student?.addon && student?.atendimento === name ? sum + 1 : sum
-          ), 0)
+          total: totalAddonByPerson(name)
         }))
         .sort((a, b) => b.total - a.total || a.name.localeCompare(b.name, 'pt-BR'));
 
@@ -9379,12 +10094,19 @@
     }
 
     function updateAddon(person, type, idx, value) {
+      if (!assertWritableCurrentPeriod({ rerender: ['hero', 'dashboard', 'addons'] })) return;
+      if (!getReceptionists(state).includes(person)) {
+        showToast('Atendente removido do cadastro ativo. Histórico de addons está em modo somente leitura.', 'info');
+        requestRender(['hero', 'dashboard', 'addons']);
+        return;
+      }
       state.addons[person][type][idx] = Math.max(0, Number(value || 0));
       saveData();
       requestRender(['hero', 'dashboard', 'addons']);
     }
 
     function addPerson() {
+      if (!assertWritableCurrentPeriod({ rerender: ['dashboard', 'addons', 'settings'] })) return;
       const base = `Recepcionista ${getReceptionists(state).length + 1}`;
       state.settings.receptionists.push(base);
       state.settings.team = [...state.settings.receptionists];
@@ -9396,9 +10118,11 @@
     }
 
     function renamePerson(oldName, newNameRaw) {
+      if (!assertWritableCurrentPeriod({ rerender: ['dashboard', 'students', 'addons', 'pending', 'nps', 'settings'] })) return;
       const newName = newNameRaw.trim();
       if (!newName || newName === oldName) return requestRender('addons');
       if (getReceptionists(state).includes(newName)) return showToast('Já existe um atendente com esse nome.', 'warning');
+      if (state.addons[newName] && newName !== oldName) return showToast('Já existe histórico de addons com esse nome.', 'warning');
       state.settings.receptionists = getReceptionists(state).map(name => name === oldName ? newName : name);
       state.settings.team = [...state.settings.receptionists];
       state.students.forEach(s => { if (s.atendimento === oldName) s.atendimento = newName; });
@@ -9424,6 +10148,7 @@
     let draggingPendingId = null;
 
     function updatePendingStatus(id, status) {
+      if (!assertWritableCurrentPeriod({ rerender: ['hero', 'dashboard', 'pending'] })) return;
       const item = state.pending.find(x => x.id === id);
       if (!item || item.status === status) return;
       item.status = status;
@@ -9649,6 +10374,7 @@
     }
 
     async function savePending() {
+      if (!assertWritableCurrentPeriod()) return;
       const formData = getPendingFormData();
       limparErrosValidacao(['pending_nome', 'pending_matricula', 'pending_desc', 'pending_data']);
       const idx = state.pending.findIndex(p => p.id === formData.id);
@@ -9685,6 +10411,7 @@
     }
 
     function removePending(id) {
+      if (!assertWritableCurrentPeriod()) return;
       showConfirm('Deseja excluir esta pendência?', () => {
         state.pending = state.pending.filter(p => p.id !== id);
         saveData();
@@ -9763,8 +10490,8 @@
 
       const monthlyGoal = clamp(Number(state.nps.monthlyGoal ?? 75), 0, 100);
       const semesterGoal = clamp(Number(state.nps.semesterGoal ?? 80), 0, 100);
-      const monthlyProgress = monthlyGoal ? (rankingNps.totalCitacoes / monthlyGoal) * 100 : 0;
-      const semesterProgress = semesterGoal ? (rankingNps.totalCitacoes / semesterGoal) * 100 : 0;
+      const monthlyProgress = getNpsGoalProgress(score, monthlyGoal);
+      const semesterProgress = getNpsGoalProgress(score, semesterGoal);
       const historyRows = getNpsHistoryRows();
       document.getElementById('npsMeterBox').innerHTML = `
         <div class="score-hero">
@@ -9823,14 +10550,14 @@
             <div class="nps-progress-card">
               <div class="nps-progress-head">
                 <div class="nps-progress-title">Progresso da meta mensal</div>
-                <div class="nps-progress-meta">${rankingNps.totalCitacoes}/${monthlyGoal} • ${Math.round(monthlyProgress)}%${monthlyProgress >= 100 ? ' ✓' : ''}</div>
+                <div class="nps-progress-meta">${score}/${monthlyGoal} • ${Math.round(monthlyProgress)}%${monthlyProgress >= 100 ? ' ✓' : ''}</div>
               </div>
               <div class="nps-progress-track"><div class="nps-progress-fill" style="width:${Math.min(100, monthlyProgress)}%"></div></div>
             </div>
             <div class="nps-progress-card">
               <div class="nps-progress-head">
                 <div class="nps-progress-title">Progresso da meta semestral</div>
-                <div class="nps-progress-meta">${rankingNps.totalCitacoes}/${semesterGoal} • ${Math.round(semesterProgress)}%${semesterProgress >= 100 ? ' ✓' : ''}</div>
+                <div class="nps-progress-meta">${score}/${semesterGoal} • ${Math.round(semesterProgress)}%${semesterProgress >= 100 ? ' ✓' : ''}</div>
               </div>
               <div class="nps-progress-track"><div class="nps-progress-fill" style="width:${Math.min(100, semesterProgress)}%"></div></div>
             </div>
@@ -9890,9 +10617,40 @@
           </div>
         </div>
       `).join('') : '<div class="empty">Ainda não há funcionários citados no NPS.</div>';
+
+      // Líderes dos meses anteriores
+      const lideres = selecionarLideresHistoricos();
+      aplicarHtmlSeMudou(document.getElementById('npsHistLeaders'), lideres.length ? `
+        <div class="hist-leaders">
+          <div class="hist-leaders-title">Líderes dos meses anteriores</div>
+          <div class="hist-leaders-subtitle">Resumo dos destaques de addons e citações NPS dos períodos já fechados.</div>
+          <div class="hist-leaders-list">
+            ${lideres.map(m => `
+              <div class="hist-leaders-card">
+                <div class="hist-leaders-period">${esc(m.label)}</div>
+                <div class="hist-leaders-row">
+                  <span class="hist-leaders-label">Líder addons</span>
+                  <span class="hist-leaders-value">${m.addonLeader ? `${esc(m.addonLeader.name)}<span class="hl-total">${m.addonLeader.total}</span>` : 'Sem dados'}</span>
+                </div>
+                <div class="hist-leaders-row">
+                  <span class="hist-leaders-label">Líder NPS</span>
+                  <span class="hist-leaders-value">${m.npsLeader ? `${esc(m.npsLeader.name)}<span class="hl-total">${m.npsLeader.total} cit.</span>` : 'Sem dados'}</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      ` : `
+        <div class="hist-leaders">
+          <div class="hist-leaders-title">Líderes dos meses anteriores</div>
+          <div class="hist-leaders-subtitle">Resumo dos destaques de addons e citações NPS dos períodos já fechados.</div>
+          <div class="hist-leaders-empty">Dados de meses anteriores aparecerão aqui conforme o uso.</div>
+        </div>
+      `);
     }
 
     function updateNpsScore(value, source) {
+      if (!assertWritableCurrentPeriod({ rerender: ['hero', 'dashboard', 'nps'] })) return;
       state.nps.score = clamp(Number(value || 0), 0, 100);
       saveData();
       requestRender(['hero', 'dashboard', 'nps']);
@@ -9904,12 +10662,14 @@
     }
 
     function updateNpsGoal(field, value) {
+      if (!assertWritableCurrentPeriod({ rerender: ['dashboard', 'nps'] })) return;
       state.nps[field] = clamp(Number(value || 0), 0, 100);
       saveData();
       requestRender(['dashboard', 'nps']);
     }
 
     function registerMention() {
+      if (!assertWritableCurrentPeriod()) return;
       const { name, count } = getMentionDraft();
       if (!name) return showToast('Informe o nome do funcionário citado.', 'warning');
       captureNpsRankSnapshot();
@@ -9926,6 +10686,7 @@
     }
 
     function adjustMention(id, delta) {
+      if (!assertWritableCurrentPeriod()) return;
       const item = state.nps.mentions.find(x => x.id === id);
       if (!item) return;
       captureNpsRankSnapshot();
@@ -9935,6 +10696,7 @@
     }
 
     function setMentionCount(id, value) {
+      if (!assertWritableCurrentPeriod({ rerender: ['hero', 'dashboard', 'nps'] })) return;
       const item = state.nps.mentions.find(x => x.id === id);
       if (!item) return;
       captureNpsRankSnapshot();
@@ -9944,6 +10706,7 @@
     }
 
     function renameMention(id, newNameRaw) {
+      if (!assertWritableCurrentPeriod({ rerender: ['hero', 'dashboard', 'nps'] })) return;
       const item = state.nps.mentions.find(x => x.id === id);
       if (!item) return;
       const newName = newNameRaw.trim();
@@ -9955,6 +10718,7 @@
     }
 
     function removeMention(id) {
+      if (!assertWritableCurrentPeriod()) return;
       showConfirm('Deseja remover este nome do ranking de NPS?', () => {
         captureNpsRankSnapshot();
         state.nps.mentions = state.nps.mentions.filter(item => item.id !== id);
@@ -9964,6 +10728,7 @@
     }
 
     async function saveNpsObservations() {
+      if (!assertWritableCurrentPeriod({ rerender: ['nps'] })) return;
       state.nps.observations = getNpsObservationsDraft();
       const saved = await saveData();
       if (saved) showToast('Observações de NPS salvas.');
@@ -10035,6 +10800,7 @@
     // ══════════════════════════════════════════
 
     async function saveScaleDay() {
+      if (!assertWritableCurrentPeriod()) return;
       const payload = getScaleFormData();
       limparErrosValidacao(['scale_date']);
       if (!payload.date) { apresentarErroValidacao([{ id: 'scale_date', message: 'Informe a data da escala.' }]); return; }
@@ -10050,6 +10816,7 @@
     }
 
     function removeScaleDay(id) {
+      if (!assertWritableCurrentPeriod()) return;
       showConfirm('Deseja excluir este dia da escala?', () => {
         state.scale = state.scale.filter(entry => entry.id !== id);
         saveData();
@@ -10268,6 +11035,7 @@
     }
 
     async function saveEventItem() {
+      if (!assertWritableCurrentPeriod()) return;
       const formData = getEventFormData();
       limparErrosValidacao(['event_date', 'event_title']);
       const idx = state.events.findIndex(entry => entry.id === formData.id);
@@ -10297,6 +11065,7 @@
     }
 
     function removeEventItem(id) {
+      if (!assertWritableCurrentPeriod()) return;
       showConfirm('Deseja excluir este evento / ação?', () => {
         state.events = state.events.filter(entry => entry.id !== id);
         saveData();
@@ -10305,6 +11074,7 @@
     }
 
     async function duplicateEventItem(id) {
+      if (!assertWritableCurrentPeriod()) return;
       const item = state.events.find(entry => entry.id === id);
       if (!item) return;
       const clone = {
@@ -10439,6 +11209,7 @@
     // ══════════════════════════════════════════
 
     function renderSettings() {
+      if (!state?.settings) return;
       document.getElementById('receptionistEditor').value = getReceptionists(state).join('\n');
       document.getElementById('professorEditor').value = getProfessors(state).join('\n');
       document.getElementById('addonTypeEditor').value = state.settings.addonTypes.join('\n');
@@ -10452,6 +11223,7 @@
     }
 
     async function saveSettings() {
+      if (!assertWritableCurrentPeriod({ rerender: ['dashboard', 'students', 'addons', 'pending', 'nps', 'settings'] })) return;
       const { receptionists, professors, addonTypes } = getSettingsFormData();
       if (!receptionists.length || !addonTypes.length) { showToast('Informe ao menos uma recepcionista e um tipo de addon.', 'warning'); return; }
       const old = structuredClone(state);
@@ -10475,10 +11247,12 @@
     }
 
     function resizeMonth(days) {
+      if (!assertWritableCurrentPeriod({ rerender: ['hero', 'dashboard', 'addons'] })) return;
       state.settings.monthDays = Number(days);
-      getReceptionists(state).forEach(person => {
-        state.settings.addonTypes.forEach(type => {
-          const old = state.addons[person][type] || [];
+      Object.keys(state.addons || {}).forEach(person => {
+        const knownTypes = [...new Set([...state.settings.addonTypes, ...Object.keys(state.addons[person] || {})])];
+        knownTypes.forEach(type => {
+          const old = state.addons[person]?.[type] || [];
           state.addons[person][type] = Array.from({ length: state.settings.monthDays }, (_, i) => Number(old[i] || 0));
         });
       });
@@ -10489,6 +11263,7 @@
     function getPeriodMetrics(period) {
       normalizeData(period);
       return {
+        recados: period.recados.length,
         students: period.students.length,
         pending: period.pending.length,
         events: period.events.length,
@@ -10502,6 +11277,7 @@
       const periods = Object.entries(storeRef.periods || {});
       const totals = periods.reduce((acc, [_, period]) => {
         const metrics = getPeriodMetrics(period);
+        acc.recados += metrics.recados;
         acc.students += metrics.students;
         acc.pending += metrics.pending;
         acc.events += metrics.events;
@@ -10509,7 +11285,7 @@
         acc.mentions += metrics.mentions;
         acc.addonVolume += metrics.addonVolume;
         return acc;
-      }, { students: 0, pending: 0, events: 0, scale: 0, mentions: 0, addonVolume: 0 });
+      }, { recados: 0, students: 0, pending: 0, events: 0, scale: 0, mentions: 0, addonVolume: 0 });
       return {
         periods: periods.length,
         archives: Object.keys(storeRef.archives || {}).length,
@@ -10604,8 +11380,8 @@
       const storageStatusLabel = meta.storageUsage.error
         ? 'Leitura local indisponível'
         : meta.storageUsage.status === 'warn'
-          ? 'Próximo do limite'
-          : 'localStorage OK';
+          ? 'Espelho local próximo do limite'
+          : 'Espelho local OK';
       const storagePill = meta.storageUsage.error
         ? 'info'
         : meta.storageUsage.status === 'warn'
@@ -10641,7 +11417,7 @@
             </div>
             <div class="settings-about-item">
               <div class="name">Tecnologia</div>
-              <div class="value">HTML/CSS/JS + localStorage</div>
+              <div class="value">HTML/CSS/JS + persistência local híbrida (IndexedDB + localStorage)</div>
             </div>
             <div class="settings-about-item">
               <div class="name">Descrição</div>
@@ -10654,7 +11430,7 @@
       if (storageHost) {
         const usage = meta.storageUsage;
         const toneClass = usage.error ? 'info' : usage.status === 'warn' ? 'warn' : 'ok';
-        const usageLabel = usage.error ? 'Leitura indisponível' : usage.status === 'warn' ? 'Próximo do limite estimado' : 'Faixa confortável';
+        const usageLabel = usage.error ? 'Leitura indisponível' : usage.status === 'warn' ? 'Espelho local próximo do limite estimado' : 'Espelho local em faixa confortável';
         aplicarHtmlSeMudou(storageHost, `
           <div class="settings-storage-box">
             <div class="settings-storage-top">
@@ -10665,11 +11441,11 @@
               <div class="settings-storage-fill" style="width:${Math.min(100, usage.ratio * 100)}%"></div>
             </div>
             <div class="settings-storage-meta">
-              <span>Uso estimado <strong>${usage.error ? '—' : `${(usage.ratio * 100).toFixed(1)}%`}</strong></span>
+              <span>Uso estimado do espelho local <strong>${usage.error ? '—' : `${(usage.ratio * 100).toFixed(1)}%`}</strong></span>
               <span>Chaves monitoradas <strong>${usage.keyCount}</strong></span>
-              <span>Escopo <strong>wpm_* + chaves da versão atual</strong></span>
+              <span>Escopo <strong>localStorage monitorado do app</strong></span>
             </div>
-            <div class="settings-storage-foot">Estimativa local de 5 MB por navegador. O cálculo é somente leitura e considera o namespace de recados e as chaves principais do app nesta versão.</div>
+            <div class="settings-storage-foot">Estimativa local de 5 MB para o espelho em localStorage. A persistência principal do app usa IndexedDB; este painel mostra somente as chaves locais auxiliares e de compatibilidade desta versão.</div>
           </div>
         `);
       }
@@ -10716,7 +11492,7 @@
       const list = (period.pending || []).slice().sort((a, b) => compareByDateTime(a, b));
       return [
         ['Nome', 'Matrícula', 'Pendência', 'Solicitação', 'Hostess', 'Resposta', 'Status'],
-        ...list.map(item => [item.nome || '', item.matricula || '', item.pendencia || '', item.solicitacao || '', item.hostess || '', item.resposta || '', item.status || ''])
+        ...list.map(item => [item.nome || '', item.matricula || '', item.pendencia || '', item.data || '', item.hostess || '', item.resposta || '', item.status || ''])
       ];
     }
 
@@ -10829,8 +11605,8 @@
         },
         {
           label: 'Reset do mês em simulação',
-          status: resetMetrics.students === 0 && resetMetrics.pending === 0 && resetMetrics.events === 0 && resetMetrics.scale === 0 && resetMetrics.mentions === 0 && resetMetrics.addonVolume === 0 ? 'ok' : 'bad',
-          detail: `${resetMetrics.students} alunos • ${resetMetrics.pending} pendências • ${resetMetrics.events} eventos • ${resetMetrics.scale} registros de escala • ${resetMetrics.mentions} menções • ${resetMetrics.addonVolume} addons após reset simulado.`
+          status: resetMetrics.recados === 0 && resetMetrics.students === 0 && resetMetrics.pending === 0 && resetMetrics.events === 0 && resetMetrics.scale === 0 && resetMetrics.mentions === 0 && resetMetrics.addonVolume === 0 ? 'ok' : 'bad',
+          detail: `${resetMetrics.recados} recados • ${resetMetrics.students} alunos • ${resetMetrics.pending} pendências • ${resetMetrics.events} eventos • ${resetMetrics.scale} registros de escala • ${resetMetrics.mentions} menções • ${resetMetrics.addonVolume} addons após reset simulado.`
         },
         {
           label: 'Cobertura anual mínima',
@@ -10851,16 +11627,97 @@
 
     function isLegacyPeriodPayload(payload) {
       if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return false;
-      return ['settings', 'students', 'pending', 'nps', 'scale', 'events', 'addons', 'escala', 'eventos'].some(key => key in payload);
+      return ['settings', 'students', 'pending', 'recados', 'nps', 'scale', 'events', 'addons', 'escala', 'eventos'].some(key => key in payload);
     }
 
-    function coerceImportedStore(source) {
+    function extractImportedPayload(source) {
       const cleanedRoot = sanitizeDeep(cloneSerializable(source));
       const payload = cleanedRoot?.payload && typeof cleanedRoot.payload === 'object' && !Array.isArray(cleanedRoot.payload)
         ? cleanedRoot.payload
         : cleanedRoot;
+      return payload && typeof payload === 'object' && !Array.isArray(payload) ? payload : null;
+    }
 
-      if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return null;
+    function isMonthArchivePayload(payload) {
+      return Boolean(
+        payload &&
+        typeof payload === 'object' &&
+        !Array.isArray(payload) &&
+        isValidPeriodKey(payload.periodKey) &&
+        payload.data &&
+        typeof payload.data === 'object' &&
+        !Array.isArray(payload.data)
+      );
+    }
+
+    function getMonthArchiveImportMeta(payload) {
+      if (!isMonthArchivePayload(payload)) return null;
+      const periodKey = String(payload.periodKey);
+      return {
+        periodKey,
+        periodLabel: String(payload.periodLabel || '').trim() || getPeriodLabel(periodKey),
+        exportedAt: String(payload?.meta?.exportedAt || '').trim()
+      };
+    }
+
+    function buildArchiveEntryFromMonthArchivePayload(payload, existingArchive = null) {
+      const meta = getMonthArchiveImportMeta(payload);
+      if (!meta) return existingArchive || null;
+      const exportedDate = meta.exportedAt ? new Date(meta.exportedAt) : null;
+      const hasValidExportedDate = exportedDate && !Number.isNaN(exportedDate.getTime());
+      const fallbackDate = existingArchive?.closedAt ? new Date(existingArchive.closedAt) : new Date();
+      const normalizedDate = hasValidExportedDate ? exportedDate : fallbackDate;
+
+      return {
+        closedAt: normalizedDate.toISOString(),
+        closedAtLabel: normalizedDate.toLocaleString('pt-BR'),
+        label: meta.periodLabel || existingArchive?.label || getPeriodLabel(meta.periodKey)
+      };
+    }
+
+    function buildStoreFromMonthArchivePayload(payload, baseStore = storage) {
+      const meta = getMonthArchiveImportMeta(payload);
+      if (!meta) return null;
+
+      const baseCandidate = prepareStoreCandidate(cloneSerializable(baseStore)) || getDefaultStore();
+      const nextStore = cloneSerializable(baseCandidate);
+      nextStore.periods ||= {};
+      nextStore.archives ||= {};
+      nextStore.periods[meta.periodKey] = cloneSerializable(payload.data);
+      normalizeData(nextStore.periods[meta.periodKey]);
+      nextStore.archives[meta.periodKey] = buildArchiveEntryFromMonthArchivePayload(payload, nextStore.archives[meta.periodKey]);
+      return prepareStoreCandidate(nextStore);
+    }
+
+    function getImportedPayloadDescriptor(source) {
+      const payload = extractImportedPayload(source);
+      if (!payload) return { kind: 'unknown' };
+      if (isMonthArchivePayload(payload)) {
+        const meta = getMonthArchiveImportMeta(payload);
+        return {
+          kind: 'month-archive',
+          periodKey: meta.periodKey,
+          periodLabel: meta.periodLabel
+        };
+      }
+      if (payload.periods && typeof payload.periods === 'object' && !Array.isArray(payload.periods)) {
+        return {
+          kind: 'full-backup',
+          periodCount: Object.keys(payload.periods).filter(isValidPeriodKey).length
+        };
+      }
+      if (isLegacyPeriodPayload(payload)) {
+        return { kind: 'legacy-period' };
+      }
+      return { kind: 'unknown' };
+    }
+
+    function coerceImportedStore(source) {
+      const payload = extractImportedPayload(source);
+      if (!payload) return null;
+      if (isMonthArchivePayload(payload)) {
+        return buildStoreFromMonthArchivePayload(payload, storage);
+      }
       if (payload.periods && typeof payload.periods === 'object' && !Array.isArray(payload.periods)) {
         return prepareStoreCandidate(payload);
       }
@@ -10888,6 +11745,8 @@
 
     async function applyImportedStore(parsed, options = {}) {
       // Import/restore = sanitize -> normalize -> persist -> recarregar store principal -> sync UI.
+      // Fechamento mensal é mesclado ao store atual como período arquivado; backup
+      // completo continua substituindo a base inteira.
       const normalized = coerceImportedStore(parsed);
       if (!normalized) throw new Error('Estrutura inválida ou incompatível com o schema atual.');
       const saved = await saveStore(normalized, {
@@ -10925,6 +11784,7 @@
     }
 
     function restoreLocalSnapshot() {
+      if (!assertWritableCurrentPeriod()) return;
       const snapshot = readStoredJsonWithFallback(LOCAL_SNAPSHOT_KEY, LEGACY_LOCAL_SNAPSHOT_KEYS, null);
       if (!snapshot) { showToast('Nenhum snapshot local foi salvo ainda.', 'info'); return; }
       showConfirm('Deseja restaurar o último snapshot local? Isso substituirá o estado atual.', async () => {
@@ -11023,7 +11883,7 @@
         <div class="summary-item summary-item--col1">
           <div>
             <div class="name">Resumo consolidado</div>
-            <div class="muted">${summary.students} alunos • ${summary.pending} pendências • ${summary.events} eventos • ${summary.scale} turnos • ${summary.mentions} citações de NPS • volume de addons ${summary.addonVolume}.</div>
+            <div class="muted">${summary.recados} recados • ${summary.students} alunos • ${summary.pending} pendências • ${summary.events} eventos • ${summary.scale} turnos • ${summary.mentions} citações de NPS • volume de addons ${summary.addonVolume}.</div>
             <div class="subtle-note">${esc(snapshotText)}</div>
           </div>
         </div>
@@ -11193,6 +12053,7 @@
     }
 
     function importData(file) {
+      if (!assertWritableCurrentPeriod()) return;
       if (!file) return;
       if (file.size > 50 * 1024 * 1024) { showToast('Arquivo muito grande (máximo: 50MB).', 'danger'); return; }
       if (!file.name.endsWith('.json')) { showToast('Formato inválido. Selecione um arquivo .json.', 'warning'); return; }
@@ -11201,13 +12062,20 @@
       reader.onload = async () => {
         try {
           const parsed = JSON.parse(reader.result);
+          const descriptor = getImportedPayloadDescriptor(parsed);
           const importedStore = coerceImportedStore(parsed);
           if (!importedStore) throw new Error('Dados não reconhecidos');
           await downloadData();
-          showConfirm('Backup exportado. Confirmar importação e substituir todos os dados atuais?', async () => {
+          const confirmMessage = descriptor.kind === 'month-archive'
+            ? `Backup exportado. Confirmar importação do fechamento de ${descriptor.periodLabel}? Somente ${descriptor.periodLabel} será restaurado/atualizado e marcado como fechado.`
+            : 'Backup exportado. Confirmar importação e substituir todos os dados atuais?';
+          showConfirm(confirmMessage, async () => {
             try {
-              const summary = await applyImportedStore(importedStore, { eventType: 'import' });
-              showToast(`Backup importado: ${summary.periods} períodos • ${summary.students} alunos • ${summary.pending} pendências • ${summary.events} eventos.`, 'success', 5000);
+              const summary = await applyImportedStore(parsed, { eventType: 'import' });
+              const successMessage = descriptor.kind === 'month-archive'
+                ? `Fechamento de ${descriptor.periodLabel} importado com sucesso. Demais períodos foram preservados.`
+                : `Backup importado: ${summary.periods} períodos • ${summary.students} alunos • ${summary.pending} pendências • ${summary.events} eventos.`;
+              showToast(successMessage, 'success', 5000);
             } catch (err) {
               showToast('Erro ao aplicar backup: ' + (err.message || 'erro desconhecido'), 'danger');
             }
@@ -11220,6 +12088,7 @@
     }
 
     function resetDemoData() {
+      if (!assertWritableCurrentPeriod()) return;
       showConfirm('Deseja restaurar o exemplo inicial? Isso substituirá os dados atuais.', async () => {
         const initialKey = getInitialPeriodKey();
         storage = normalizeStore({ activePeriod: initialKey, periods: seedYear(String(initialKey).split('-')[0]), archives: {} });
@@ -11237,11 +12106,17 @@
       populateStudentFilters();
       applyUIStateToControls();
       renderSections('hero', 'dashboard', 'students', 'addons', 'pending', 'nps', 'scale', 'events', 'settings');
+      syncCurrentPeriodLockUI();
     }
 
     async function syncAppState(storeLike = null) {
       const sourceStore = storeLike || storage || await loadStore();
       storage = prepareStoreCandidate(sourceStore) || getDefaultStore();
+      await migrateLegacyRecadosToStore(storage, {
+        persist: true,
+        cleanup: true,
+        eventType: 'recados-migration'
+      });
       currentPeriodKey = storage.activePeriod;
       state = storage.periods[currentPeriodKey];
       normalizeData(state);
