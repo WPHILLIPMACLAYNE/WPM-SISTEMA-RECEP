@@ -3803,21 +3803,22 @@
       flex-direction: column;
       gap: 14px;
       flex: 1;
-      justify-content: space-between;
+      justify-content: flex-start;
       padding: 16px 18px 15px;
       overflow-x: auto;
       overflow-y: hidden;
       min-width: 0;
+      min-height: 0;
     }
     #dashboard .dashboard-section--feedback .chart {
-      flex: 0 0 318px;
-      height: 318px;
-      min-height: 318px;
-      max-height: 318px;
+      flex: 1 1 0;
+      height: 0;
+      min-height: 220px;
+      max-height: 360px;
       gap: 12px;
       padding: 8px 2px 4px;
       align-items: flex-end;
-      contain: layout;
+      contain: layout size;
     }
     #dashboard .dashboard-section--feedback .bar-col {
       min-width: 70px;
@@ -4743,10 +4744,8 @@
       .field-recado-message,
       .recados-submit { grid-column: auto; }
       #dashboard .dashboard-section--feedback .chart {
-        flex: 0 0 264px;
-        height: 264px;
-        min-height: 264px;
-        max-height: 264px;
+        min-height: 180px;
+        max-height: 280px;
         gap: 10px;
       }
       h1 { max-width: none; }
