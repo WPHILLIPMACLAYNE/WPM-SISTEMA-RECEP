@@ -860,7 +860,7 @@
     .chart {
       height: 260px;
       display: flex;
-      align-items: end;
+      align-items: flex-end;
       gap: 10px;
       padding-top: 12px;
     }
@@ -3810,12 +3810,14 @@
       min-width: 0;
     }
     #dashboard .dashboard-section--feedback .chart {
-      flex: 1;
-      height: auto;
+      flex: 0 0 318px;
+      height: 318px;
       min-height: 318px;
+      max-height: 318px;
       gap: 12px;
       padding: 8px 2px 4px;
-      align-items: end;
+      align-items: flex-end;
+      contain: layout;
     }
     #dashboard .dashboard-section--feedback .bar-col {
       min-width: 70px;
@@ -4741,7 +4743,10 @@
       .field-recado-message,
       .recados-submit { grid-column: auto; }
       #dashboard .dashboard-section--feedback .chart {
+        flex: 0 0 264px;
+        height: 264px;
         min-height: 264px;
+        max-height: 264px;
         gap: 10px;
       }
       h1 { max-width: none; }
@@ -8628,16 +8633,9 @@
         return;
       }
 
-      let cursor = container.firstElementChild;
-      desejados.forEach(no => {
-        if (no === cursor) {
-          cursor = cursor.nextElementSibling;
-          return;
-        }
-        container.insertBefore(no, cursor);
-      });
-
-      existentes.forEach(no => no.remove());
+      const fragmento = document.createDocumentFragment();
+      desejados.forEach(no => fragmento.appendChild(no));
+      container.replaceChildren(fragmento);
       restaurarEstadoFoco(container, foco);
     }
 
@@ -9365,6 +9363,8 @@
 
       const maxPositiveRate = Math.max(0.01, ...summary.map(s => s.taxaPositiva));
       const feedbackChart = document.getElementById('feedbackChart');
+      feedbackChart.style.minWidth = `${Math.max(summary.length * 88, 560)}px`;
+      feedbackChart.style.alignItems = 'flex-end';
       if (!summary.length) {
         aplicarHtmlSeMudou(feedbackChart, `<div class="empty">Sem dados para exibir.</div>`);
       } else {
@@ -9379,7 +9379,6 @@
           `;
         });
       }
-      feedbackChart.style.minWidth = `${Math.max(summary.length * 88, 560)}px`;
 
       const addonsOverview = document.getElementById('addonsOverview');
       const addonPeople = getAddonPeople(state);
