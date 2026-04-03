@@ -766,6 +766,47 @@
     .summary-item--backup { grid-template-columns: 1.2fr repeat(3, .9fr); }
     .summary-item--diagnostic { grid-template-columns: auto 1fr; }
     .summary-item--audit { grid-template-columns: 1.2fr repeat(4, .8fr) auto; }
+    .summary-item--dashboard-person {
+      grid-template-columns: minmax(220px, 1.4fr) repeat(4, minmax(92px, 1fr)) minmax(130px, .9fr);
+      align-items: center;
+      gap: 14px;
+      padding: 16px 18px;
+    }
+    .summary-item--dashboard-person .summary-main {
+      min-width: 0;
+      display: grid;
+      gap: 4px;
+      align-content: center;
+    }
+    .summary-item--dashboard-person .summary-main .name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .summary-item--dashboard-person .metric {
+      min-width: 92px;
+      display: grid;
+      justify-items: center;
+      align-content: center;
+      text-align: center;
+      gap: 2px;
+    }
+    .summary-item--dashboard-person .metric strong {
+      margin-bottom: 2px;
+      white-space: nowrap;
+    }
+    .summary-item--dashboard-person .metric span {
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+    .summary-item--dashboard-person .metric:last-child {
+      min-width: 130px;
+      justify-items: end;
+      text-align: right;
+    }
+    .summary-item--dashboard-person .metric:last-child span {
+      white-space: normal;
+    }
     .summary-item--addon-overview {
       display: flex;
       justify-content: space-between;
@@ -1212,8 +1253,8 @@
     }
     .student-table th,
     .student-table td {
-      vertical-align: top;
-      padding: 14px 10px;
+      vertical-align: middle;
+      padding: 12px 10px;
     }
     .student-table th:nth-child(1),  .student-table td:nth-child(1)  { width: 12%; }  /* Nome */
     .student-table th:nth-child(2),  .student-table td:nth-child(2)  { width: 8%; }   /* Matrícula */
@@ -1226,6 +1267,48 @@
     .student-table th:nth-child(9),  .student-table td:nth-child(9)  { width: 7%; }   /* Addon */
     .student-table th:nth-child(10), .student-table td:nth-child(10) { width: 10%; }  /* Observações */
     .student-table th:nth-child(11), .student-table td:nth-child(11) { width: 10%; }  /* Ações */
+    #students .student-table th {
+      vertical-align: middle;
+    }
+    #students .student-table td:nth-child(3),
+    #students .student-table td:nth-child(4),
+    #students .student-table td:nth-child(5),
+    #students .student-table td:nth-child(6),
+    #students .student-table td:nth-child(8),
+    #students .student-table td:nth-child(9) {
+      text-align: center;
+    }
+    #students .student-table td .table-input {
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    #students .student-table td:nth-child(10) {
+      white-space: normal;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      line-height: 1.4;
+    }
+    #students .student-table td:nth-child(6) .pill,
+    #students .student-table td:nth-child(8) .pill,
+    #students .student-table td:nth-child(9) .pill {
+      justify-content: center;
+      min-height: 32px;
+      text-align: center;
+    }
+    #students .student-table td.right {
+      display: flex;
+      width: 100%;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    #students .student-table td.right .btn {
+      margin-left: 0;
+      flex: 0 0 auto;
+    }
     #students .students-toolbar-actions {
       display: grid;
       grid-template-columns: minmax(260px, 1.8fr) minmax(180px, .72fr) minmax(180px, .72fr) auto;
@@ -4551,6 +4634,13 @@
       .insight-grid { grid-template-columns: repeat(2, minmax(180px, 1fr)); }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
       .summary-item { grid-template-columns: 1fr 1fr 1fr; }
+      .summary-item--dashboard-person {
+        grid-template-columns: minmax(220px, 1fr) repeat(4, minmax(92px, 1fr));
+      }
+      .summary-item--dashboard-person .metric:last-child {
+        grid-column: 2 / -1;
+        justify-self: end;
+      }
       .kanban { grid-template-columns: 1fr; }
       .field-grid { grid-template-columns: repeat(2, minmax(160px, 1fr)); }
       #students .students-toolbar-actions {
@@ -4627,6 +4717,16 @@
       }
       .summary-item > :first-child {
         grid-column: 1 / -1;
+      }
+      .summary-item--dashboard-person {
+        grid-template-columns: repeat(3, minmax(118px, 1fr));
+        row-gap: 10px;
+      }
+      .summary-item--dashboard-person .summary-main {
+        grid-column: 1 / -1;
+      }
+      .summary-item--dashboard-person .metric:last-child {
+        grid-column: 2 / -1;
       }
       .nps-grid-3 {
         grid-template-columns: 1fr;
@@ -4783,6 +4883,17 @@
         display: none;
       }
       .summary-item { grid-template-columns: 1fr 1fr; }
+      .summary-item--dashboard-person {
+        grid-template-columns: repeat(2, minmax(110px, 1fr));
+      }
+      .summary-item--dashboard-person .summary-main {
+        grid-column: 1 / -1;
+      }
+      .summary-item--dashboard-person .metric:last-child {
+        grid-column: 1 / -1;
+        justify-items: start;
+        text-align: left;
+      }
       .hero-main, .hero-side, .section { padding: 18px; }
       .hero-action-bar { padding: 18px; }
       .hero-side { grid-template-columns: 1fr; }
