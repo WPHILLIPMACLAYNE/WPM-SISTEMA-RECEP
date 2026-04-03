@@ -5190,7 +5190,7 @@
             <h2>Quadro de acompanhamento</h2>
             <p>Separação visual por etapa para facilitar o dia a dia.</p>
           </div>
-          <p id="pendingKeyboardHelp" class="sr-only">No quadro de acompanhamento, use Tab para entrar no card ativo, setas para navegar entre os cards, Home e End para ir ao primeiro ou último item, e Alt mais seta para a esquerda ou direita para mover a pendência entre aberto, respondido e concluído.</p>
+          <p id="pendingKeyboardHelp" class="sr-only">No quadro de acompanhamento, use Tab para entrar no card ativo, seta para cima e seta para baixo para navegar entre os cards, Home e End para ir ao primeiro ou último item, e Alt mais seta para a esquerda ou direita para mover a pendência entre aberto, respondido e concluído.</p>
           <div class="kanban-scroll"><div class="kanban" id="pendingKanban" role="list" aria-label="Quadro kanban de pendências" aria-describedby="pendingKeyboardHelp"></div></div>
         </div>
       </div>
@@ -10384,7 +10384,7 @@
           return;
         }
         aplicarPatchItensKanban(lista, coluna.items, item => item.id, item => `
-          <div class="ticket ${item.status === 'aberto' ? 'ticket-attention' : ''}" draggable="true" data-pending-id="${item.id}" data-tooltip="${esc(item.pendencia || '')}" role="listitem" aria-describedby="pendingKeyboardHelp" aria-label="Pendência de ${esc(item.nome)} com status ${esc(item.status)}">
+          <div class="ticket ${item.status === 'aberto' ? 'ticket-attention' : ''}" draggable="true" data-pending-id="${item.id}" data-tooltip="${esc(item.pendencia || '')}" role="listitem" aria-describedby="pendingKeyboardHelp" aria-keyshortcuts="ArrowUp ArrowDown Home End Alt+ArrowLeft Alt+ArrowRight" aria-label="Pendência de ${esc(item.nome)} com status ${esc(item.status)}">
             <div class="title" data-tooltip="${esc(item.nome)}">${esc(item.nome)}</div>
             <div class="meta">${buildPendingMeta(item)}</div>
             <div class="desc" data-tooltip="${esc(item.pendencia)}">${esc(shortText(item.pendencia, 115))}</div>
