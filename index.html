@@ -672,7 +672,8 @@
     }
 
     .table-input {
-      min-width: 128px;
+      min-width: 0;
+      width: 100%;
       min-height: 40px;
       padding: 9px 12px;
       border-radius: var(--radius-md);
@@ -682,10 +683,10 @@
     }
     .table-input[type="date"] {
       padding-right: 1.8rem;
-      min-width: 140px;
+      min-width: 130px;
     }
     .table-input[type="time"] {
-      min-width: 110px;
+      min-width: 100px;
       padding-right: 1.8rem;
     }
     .table-input:hover {
@@ -1065,6 +1066,10 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+    .table-date-static {
+      display: inline-block;
+      white-space: nowrap;
+    }
     .cell-text.multiline {
       white-space: normal;
       display: -webkit-box;
@@ -1206,7 +1211,7 @@
 
     /* Tabela de alunos — 11 colunas com espaço adequado */
     .student-table {
-      min-width: 1280px;
+      min-width: 1510px;
       width: 100%;
       table-layout: fixed;
     }
@@ -1215,17 +1220,17 @@
       vertical-align: top;
       padding: 14px 10px;
     }
-    .student-table th:nth-child(1),  .student-table td:nth-child(1)  { width: 12%; }  /* Nome */
-    .student-table th:nth-child(2),  .student-table td:nth-child(2)  { width: 8%; }   /* Matrícula */
-    .student-table th:nth-child(3),  .student-table td:nth-child(3)  { width: 11%; min-width: 150px; }  /* Última visita */
-    .student-table th:nth-child(4),  .student-table td:nth-child(4)  { width: 8%; min-width: 130px; }   /* Hora da visita */
-    .student-table th:nth-child(5),  .student-table td:nth-child(5)  { width: 10%; min-width: 150px; }  /* Início */
-    .student-table th:nth-child(6),  .student-table td:nth-child(6)  { width: 8%; }   /* Aviso NPS */
-    .student-table th:nth-child(7),  .student-table td:nth-child(7)  { width: 8%; }   /* Atendimento */
-    .student-table th:nth-child(8),  .student-table td:nth-child(8)  { width: 8%; }   /* Feedback */
-    .student-table th:nth-child(9),  .student-table td:nth-child(9)  { width: 7%; }   /* Addon */
-    .student-table th:nth-child(10), .student-table td:nth-child(10) { width: 10%; }  /* Observações */
-    .student-table th:nth-child(11), .student-table td:nth-child(11) { width: 10%; }  /* Ações */
+    .student-table th:nth-child(1),  .student-table td:nth-child(1)  { width: 140px; }  /* Nome */
+    .student-table th:nth-child(2),  .student-table td:nth-child(2)  { width: 100px; }  /* Matrícula */
+    .student-table th:nth-child(3),  .student-table td:nth-child(3)  { width: 160px; }  /* Última visita */
+    .student-table th:nth-child(4),  .student-table td:nth-child(4)  { width: 130px; }  /* Hora da visita */
+    .student-table th:nth-child(5),  .student-table td:nth-child(5)  { width: 110px; }  /* Início */
+    .student-table th:nth-child(6),  .student-table td:nth-child(6)  { width: 100px; }  /* Aviso NPS */
+    .student-table th:nth-child(7),  .student-table td:nth-child(7)  { width: 110px; }  /* Atendimento */
+    .student-table th:nth-child(8),  .student-table td:nth-child(8)  { width: 120px; }  /* Feedback */
+    .student-table th:nth-child(9),  .student-table td:nth-child(9)  { width: 100px; }  /* Addon */
+    .student-table th:nth-child(10), .student-table td:nth-child(10) { width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }  /* Observações */
+    .student-table th:nth-child(11), .student-table td:nth-child(11) { width: 140px; white-space: nowrap; }  /* Ações */
     #students .students-toolbar-actions {
       display: grid;
       grid-template-columns: minmax(260px, 1.8fr) minmax(180px, .72fr) minmax(180px, .72fr) auto;
@@ -1342,31 +1347,38 @@
       -webkit-overflow-scrolling: touch;
     }
     #students .student-table {
-      min-width: 1180px;
+      min-width: 1510px;
       width: 100%;
     }
+    #students .student-table thead th {
+      white-space: nowrap;
+      font-size: 11px;
+      letter-spacing: .04em;
+      padding-left: 8px;
+      padding-right: 8px;
+    }
     #students .student-table th:nth-child(1),
-    #students .student-table td:nth-child(1) { width: 13%; }
+    #students .student-table td:nth-child(1) { width: 140px; }          /* Nome */
     #students .student-table th:nth-child(2),
-    #students .student-table td:nth-child(2) { width: 7%; }
+    #students .student-table td:nth-child(2) { width: 100px; }          /* Matrícula */
     #students .student-table th:nth-child(3),
-    #students .student-table td:nth-child(3) { width: 10%; min-width: 150px; }
+    #students .student-table td:nth-child(3) { width: 160px; }          /* Última visita */
     #students .student-table th:nth-child(4),
-    #students .student-table td:nth-child(4) { width: 8%; min-width: 130px; }
+    #students .student-table td:nth-child(4) { width: 130px; }          /* Hora visita */
     #students .student-table th:nth-child(5),
-    #students .student-table td:nth-child(5) { width: 10%; min-width: 150px; }
+    #students .student-table td:nth-child(5) { width: 110px; }          /* Início */
     #students .student-table th:nth-child(6),
-    #students .student-table td:nth-child(6) { width: 7%; }
+    #students .student-table td:nth-child(6) { width: 100px; }          /* Aviso NPS */
     #students .student-table th:nth-child(7),
-    #students .student-table td:nth-child(7) { width: 8%; }
+    #students .student-table td:nth-child(7) { width: 110px; }          /* Atendimento */
     #students .student-table th:nth-child(8),
-    #students .student-table td:nth-child(8) { width: 7%; }
+    #students .student-table td:nth-child(8) { width: 120px; }          /* Feedback */
     #students .student-table th:nth-child(9),
-    #students .student-table td:nth-child(9) { width: 6%; }
+    #students .student-table td:nth-child(9) { width: 100px; }          /* Addon */
     #students .student-table th:nth-child(10),
-    #students .student-table td:nth-child(10) { width: 13%; }
+    #students .student-table td:nth-child(10) { width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }  /* Observações */
     #students .student-table th:nth-child(11),
-    #students .student-table td:nth-child(11) { width: 11%; }
+    #students .student-table td:nth-child(11) { width: 140px; white-space: nowrap; }
 
     .pending-overview-cards {
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1464,24 +1476,15 @@
       line-height: 1.2;
       text-transform: uppercase;
       letter-spacing: .04em;
-      white-space: normal;
-      word-break: break-word;
+      white-space: nowrap;
     }
     .kanban-col .col-head {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
+      flex-wrap: nowrap;
       gap: var(--space-xs);
       min-width: 0;
-    }
-    .kanban-col .col-count {
-      color: var(--muted);
-      font-size: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      white-space: nowrap;
     }
     .kanban-list {
       display: grid;
@@ -1565,13 +1568,13 @@
     }
     #pending > .grid-3 {
       grid-template-columns: minmax(0, var(--pending-split-left)) minmax(340px, var(--pending-split-right));
-      align-items: stretch;
+      align-items: start;
       margin-top: 0;
     }
     #pending > .grid-3 > .section {
       display: flex;
       flex-direction: column;
-      min-height: var(--pending-panel-height);
+      min-height: 0;
     }
     #pending > .grid-3 > .section .toolbar,
     #pending > .grid-3 > .section .toolbar-title {
@@ -1631,24 +1634,22 @@
     #pending .kanban-scroll {
       flex: 1 1 auto;
       min-height: 0;
-      max-height: var(--pending-panel-height);
-      overflow-y: hidden;
+      overflow-y: auto;
       overflow-x: auto;
     }
     #pending #pendingKanban.kanban {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       min-width: 0;
       width: 100%;
-      height: 100%;
-      align-items: stretch;
+      align-items: start;
     }
     #pending .kanban-col {
-      min-height: var(--pending-panel-height);
+      min-height: 0;
       padding: 12px;
       gap: 10px;
     }
     #pending .kanban-list {
-      max-height: calc(var(--pending-panel-height) - 82px);
+      max-height: 60vh;
       min-height: 0;
       padding-right: 4px;
     }
@@ -1656,9 +1657,20 @@
       padding: 12px 12px 11px;
       gap: 8px;
       border-radius: 16px;
+      border-left: 3px solid var(--line);
+    }
+    #pending .kanban-col[data-drop-status="aberto"] .ticket {
+      border-left-color: var(--danger);
+    }
+    #pending .kanban-col[data-drop-status="respondido"] .ticket {
+      border-left-color: var(--warning);
+    }
+    #pending .kanban-col[data-drop-status="concluido"] .ticket {
+      border-left-color: var(--ok);
     }
     #pending .ticket .title {
       font-size: 14px;
+      font-weight: 600;
       line-height: 1.38;
     }
     #pending .ticket .desc,
@@ -1667,8 +1679,11 @@
       line-height: 1.45;
     }
     #pending .ticket .desc {
-      -webkit-line-clamp: 3;
-      line-clamp: 3;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      overflow: hidden;
     }
     #pending .ticket .foot {
       padding-top: 8px;
@@ -3760,8 +3775,10 @@
       flex: 1;
     }
     #dashboard .summary-item--dashboard-person {
+      grid-template-columns: minmax(0, 1.35fr) repeat(5, minmax(0, .72fr));
       align-items: center;
       gap: 16px;
+      overflow: visible;
     }
     #dashboard .summary-main {
       display: grid;
@@ -3786,6 +3803,7 @@
       display: grid;
       gap: 4px;
       align-content: start;
+      overflow: visible;
     }
     #dashboard .metric span {
       white-space: normal;
@@ -3812,11 +3830,14 @@
     }
     #dashboard .dashboard-section--feedback .chart {
       flex: 1 1 0;
+      width: 100%;
+      min-width: 0 !important;
+      box-sizing: border-box;
       height: 0;
       min-height: 220px;
       max-height: 360px;
       gap: 12px;
-      padding: 8px 2px 4px;
+      padding: 8px 14px 4px 2px;
       align-items: flex-end;
       contain: layout size;
     }
@@ -4592,7 +4613,7 @@
       .kanban { min-width: 0; }
       .kanban-col { min-height: 460px; }
       #students .student-table {
-        min-width: 1040px;
+        min-width: 1240px;
       }
       #students .student-table th,
       #students .student-table td {
@@ -4749,7 +4770,7 @@
         grid-column: auto;
       }
       #students .student-table {
-        min-width: 920px;
+        min-width: 1240px;
       }
       #students .student-table th,
       #students .student-table td {
@@ -4892,7 +4913,7 @@
         grid-template-columns: 1fr;
       }
       #students .student-table {
-        min-width: 860px;
+        min-width: 1240px;
       }
       #scale .schedule-matrix table {
         min-width: 760px;
@@ -9950,11 +9971,11 @@
           <td>${esc(s.matricula || '-')}</td>
           <td><input class="table-input" type="date" value="${esc(s.ultimaVisita || '')}" aria-label="Última visita de ${esc(s.nome)}" data-change-action="update-student-inline" data-id="${s.id}" data-field="ultimaVisita" /></td>
           <td><input class="table-input" type="time" value="${esc(s.horaVisita || '')}" aria-label="Hora da visita de ${esc(s.nome)}" data-change-action="update-student-inline" data-id="${s.id}" data-field="horaVisita" /></td>
-          <td>${formatDate(s.inicio)}</td>
+          <td><span class="table-date-static">${formatDate(s.inicio)}</span></td>
           <td>${npsPill(s.avisoNps)}</td>
           <td>${esc(s.atendimento || '-')}</td>
           <td>${studentStatusPill(s.feedback)}</td>
-          <td>${s.addon ? `<span class="pill info">${esc(s.addon)}</span>` : '<span class="muted">Nenhum</span>'}</td>
+          <td>${s.addon ? `<span class="pill info">${esc(s.addon)}</span>` : '<span class="pill" style="background:rgba(255,255,255,0.06);color:var(--muted-2);">Nenhum</span>'}</td>
           <td>${renderEllipsisCell(s.observacoes, '-')}</td>
           <td class="right">
             <button class="btn btn-ghost btn-xs" data-action="edit-student" data-id="${s.id}" aria-label="Editar atendimento de ${esc(s.nome)}">Editar</button>
@@ -10370,7 +10391,6 @@
         <div class="kanban-col ${coluna.status === 'aberto' ? 'status-aberto' : ''}" data-drop-status="${coluna.status}">
           <div class="col-head">
             <h3>${coluna.status === 'aberto' ? '<span class="pulse-dot"></span>Abertas' : coluna.status === 'respondido' ? 'Respondidas' : 'Concluídas'}</h3>
-            <span class="col-count">${coluna.items.length} item${coluna.items.length === 1 ? '' : 's'}</span>
           </div>
           <div class="kanban-list"></div>
         </div>
