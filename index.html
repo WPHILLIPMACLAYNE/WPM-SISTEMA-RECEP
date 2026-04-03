@@ -4259,6 +4259,10 @@
       gap: 8px;
       align-items: center;
     }
+    @keyframes ledPulse {
+      0%, 100% { box-shadow: 0 0 3px 0 var(--led-color); }
+      50% { box-shadow: 0 0 10px 3px var(--led-color); }
+    }
     .topbar-social a {
       display: inline-flex;
       align-items: center;
@@ -4269,14 +4273,29 @@
       background: rgba(255,255,255,.07);
       border: 1px solid rgba(255,255,255,.12);
       color: rgba(255,255,255,.7);
-      transition: transform .2s, background .2s, color .2s, border-color .2s;
+      transition: transform .2s, background .2s, color .2s, border-color .2s, box-shadow .2s;
       text-decoration: none;
+      animation: ledPulse 2s ease-in-out infinite;
+    }
+    .topbar-social a[aria-label="Instagram"] {
+      --led-color: rgba(225,48,108,.55);
+      animation-delay: 0s;
+    }
+    .topbar-social a[aria-label="WhatsApp"] {
+      --led-color: rgba(37,211,102,.55);
+      animation-delay: 0.4s;
+    }
+    .topbar-social a[aria-label="LinkedIn"] {
+      --led-color: rgba(10,102,194,.55);
+      animation-delay: 0.8s;
     }
     .topbar-social a:hover {
       transform: scale(1.12);
       background: rgba(245,197,24,.18);
       border-color: rgba(245,197,24,.35);
       color: #f5c518;
+      animation: none;
+      box-shadow: 0 0 12px 4px rgba(245,197,24,.3);
     }
     .topbar-social a svg {
       width: 20px;
