@@ -5888,10 +5888,10 @@
     // CONSTANTES & CONFIGURAÇÃO — STORAGE_KEY, STORE_VERSION, APP_VERSION, MONTH_NAMES, UI_KEY
     // ══════════════════════════════════════════
 
-    const STORAGE_KEY = 'recepcao-smartfit-dashboard-v34';
-    const STORAGE_BROADCAST_KEY = 'recepcao-smartfit-dashboard-sync-v34';
+    const STORAGE_KEY = 'recepcao-wpm-dashboard-v34';
+    const STORAGE_BROADCAST_KEY = 'recepcao-wpm-dashboard-sync-v34';
     const STORE_VERSION = 4;
-    const LEGACY_STORAGE_KEYS = ['recepcao-smartfit-dashboard-v33', 'recepcao-smartfit-dashboard-v24'];
+    const LEGACY_STORAGE_KEYS = ['recepcao-wpm-dashboard-v33', 'recepcao-wpm-dashboard-v24'];
     const APP_VERSION = 'v34';
     const LOCAL_SNAPSHOT_KEY = 'controle_recepcao_app_snapshot_v34';
     const SYSTEM_REPORT_KEY = 'controle_recepcao_app_report_v34';
@@ -6379,8 +6379,8 @@
 
 
     const APP_DEFAULTS = {
-      receptionists: ['Wallace', 'Emilia', 'Gessica', 'Maickon'],
-      professors: ['Charles', 'Phillipe', 'Junior', 'Samuel', 'Gabriel', 'Maicon', 'Saulo'],
+      receptionists: ['Wallace', 'PESSOA 2', 'PESSOA 3', 'PESSOA 4'],
+      professors: ['PESSOA A', 'PESSOA B', 'PESSOA C', 'PESSOA D', 'PESSOA E', 'PESSOA F', 'PESSOA G'],
       addonTypes: ['Energy', 'Body', 'Coach'],
       studentFirstNames: ['Ana', 'Bruno', 'Carla', 'Diego', 'Eduarda', 'Felipe', 'Giovana', 'Hugo', 'Isabela', 'João', 'Karen', 'Lucas', 'Mariana', 'Nathan', 'Olivia', 'Paulo', 'Quezia', 'Rafael', 'Sabrina', 'Thiago', 'Ursula', 'Vinicius', 'Wesley', 'Yasmin', 'Zoe', 'Bianca', 'Caio', 'Debora', 'Enzo', 'Fabiana', 'Guilherme', 'Helena', 'Igor', 'Jéssica', 'Leandro', 'Mirela'],
       studentLastNames: ['Almeida', 'Barbosa', 'Cardoso', 'Dias', 'Esteves', 'Ferreira', 'Gomes', 'Henrique', 'Ibrahim', 'Jesus', 'Klein', 'Lopes', 'Macedo', 'Nascimento', 'Oliveira', 'Pereira', 'Queiroz', 'Ramos', 'Silva', 'Teixeira', 'Uchoa', 'Vieira'],
@@ -6479,7 +6479,7 @@
       const year = Number(yearStr) || new Date().getFullYear();
       const month = Number(monthStr) || 1;
       const monthDays = new Date(year, month, 0).getDate();
-      const rng = makeRng(`smartfit-${periodKey}`);
+      const rng = makeRng(`wpm-${periodKey}`);
       const receptionists = [...APP_DEFAULTS.receptionists];
       const professors = [...APP_DEFAULTS.professors];
       const addonTypes = [...APP_DEFAULTS.addonTypes];
@@ -7835,7 +7835,7 @@
         const blob = new Blob([JSON.stringify(archivePayload, null, 2)], { type: 'application/json' });
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = `smartfit-fechamento-${currentPeriodKey}.json`;
+        a.download = `wpm-fechamento-${currentPeriodKey}.json`;
         a.click();
         setTimeout(() => URL.revokeObjectURL(a.href), 5000);
 
@@ -10808,7 +10808,7 @@
       box.innerHTML = scaleShiftDrafts.length ? scaleShiftDrafts.map((shift, index) => `
         <div class="shift-editor-row">
           <div class="field"><label>Horário</label><input data-scale-shift="time" data-index="${index}" aria-label="Horário do professor na linha ${index + 1}" value="${esc(shift.time || '')}" placeholder="Ex: 08h - 13h" /></div>
-          <div class="field"><label>Professor</label><input data-scale-shift="name" data-index="${index}" aria-label="Professor da linha ${index + 1}" value="${esc(shift.name || '')}" placeholder="Ex: JUNIOR" /></div>
+          <div class="field"><label>Professor</label><input data-scale-shift="name" data-index="${index}" aria-label="Professor da linha ${index + 1}" value="${esc(shift.name || '')}" placeholder="Ex: PESSOA C" /></div>
           <div class="field"><label>Troca</label><input data-scale-shift="swap" data-index="${index}" aria-label="Troca do professor na linha ${index + 1}" value="${esc(shift.swap || '')}" placeholder="Se houver" /></div>
           <button class="btn btn-danger btn-xs" type="button" data-action="remove-scale-shift-row" data-index="${index}" aria-label="Excluir linha ${index + 1} de professor">Excluir</button>
         </div>
@@ -12112,7 +12112,7 @@
       a.href = URL.createObjectURL(blob);
       const now = new Date();
       const ts = `${todayISO()}_${String(now.getHours()).padStart(2,'0')}h${String(now.getMinutes()).padStart(2,'0')}`;
-      a.download = `smartfit-recepcao-backup-${ts}.json`;
+      a.download = `wpm-recepcao-backup-${ts}.json`;
       a.click();
       setTimeout(() => URL.revokeObjectURL(a.href), 5000);
       await saveLocalSnapshot(payload);
